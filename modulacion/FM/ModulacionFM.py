@@ -31,10 +31,7 @@ class ModulacionFM:
         modulada = 0
 
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
-        print(self.fm)
-
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
-        print(self.fc)
 
         self.wm = 2*np.pi*self.fm
         self.wc = 2*np.pi*self.fc
@@ -70,18 +67,20 @@ class ModulacionFM:
         else:
             return self.moduladora
 
-    def get_string_moduladora(self):
-        wm = 2 * np.pi * self.fm_real
-        hz = utils.switch_hz_string(self.hzfm)
-        return str(self.Vm) + self.fun_moduladora + '(' + str(wm) + hz + 't)'
-
     def get_portadora(self):
         if self.portadora is None:
             return 'no hay portadora'
         else:
             return self.portadora
 
-    def get_string_portadora(self):
-        wc = 2 * np.pi * self.fc_real
-        hz = utils.switch_hz_string(self.hzfc)
-        return str(self.Vc) + self.fun_portadora + '(' + str(wc) + hz + 't)'
+    def get_portadora_str(self):
+        return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
+
+    def get_moduladora_str(self):
+        return utils.get_string_portadora(self.fm_real, self.hzfm, self.Vm, self.fun_moduladora)
+
+    def get_modulada_str(self):
+        return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
+                                         self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.get_m())
+
+
