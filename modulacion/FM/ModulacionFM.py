@@ -1,3 +1,4 @@
+
 import numpy as np #numeric
 import sympy as sp #simbolic
 
