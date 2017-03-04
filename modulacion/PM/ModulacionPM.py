@@ -26,7 +26,9 @@ class ModulacionPM:
         self.wm = 0
         self.m = 0
 
-    def modula_funcion_pm(self):
+        self._modula_funcion_pm()
+
+    def _modula_funcion_pm(self):
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
 

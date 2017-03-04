@@ -1,15 +1,13 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
 
-from modulacion.PM import utils
+import utils
 
 
 # AGREGAR RUIDO
 #Validar Hz y no hz
 
 class ModulacionFM:
-
-
     def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, kl, fc, fm, vc, vm):
         self.fun_moduladora = fun_moduladora
         self.fun_portadora = fun_portadora
@@ -30,7 +28,9 @@ class ModulacionFM:
         self.wm = 0
         self.m = 0
 
-    def modula_funcion_fm(self):
+        self._modula_funcion_fm()
+
+    def _modula_funcion_fm(self):
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
 

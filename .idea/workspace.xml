@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88c78e12-c4ca-4c9a-88fe-ec0ac42ca01f" name="Default" comment="agregando demodulacionFM, se modifico utils.py">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modulacion/PM/__init__.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/apps.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/templates/base/mod_fm.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/base/views.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/__init__.py" afterPath="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/base/migrations/__init__.py" afterPath="$PROJECT_DIR$/modulacion/PM/ModulacionPM.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/modulacion/FM/utils.py" afterPath="$PROJECT_DIR$/modulacion/PM/utils.py" />
+    <list default="true" id="88c78e12-c4ca-4c9a-88fe-ec0ac42ca01f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modulacion/FM/utils.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modulacion/espectros_de_frecuencia/EspectroFrecuencia.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modulacion/espectros_de_frecuencia/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pytelesim/settings.py" afterPath="$PROJECT_DIR$/Pytelesim/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" afterPath="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" afterPath="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" afterPath="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/PM/ModulacionPM.py" afterPath="$PROJECT_DIR$/modulacion/PM/ModulacionPM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/PM/utils.py" afterPath="$PROJECT_DIR$/modulacion/PM/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,12 +35,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modulacion/views.py">
+      <file leaf-file-name="EspectroFrecuencia.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modulacion/espectros_de_frecuencia/EspectroFrecuencia.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="41" lean-forward="false" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="360">
+              <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#70#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,11 +50,9 @@
       <file leaf-file-name="ModulacionFM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modulacion/FM/ModulacionFM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="60" column="44" lean-forward="false" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="54">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,8 +60,8 @@
       <file leaf-file-name="DemodulacionFM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="38" />
+            <state relative-caret-position="72">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,8 +70,8 @@
       <file leaf-file-name="ModulacionPM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modulacion/PM/ModulacionPM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="85" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="85" />
+            <state relative-caret-position="504">
+              <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -87,8 +82,8 @@
       <file leaf-file-name="DemodulacionPM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="57" column="84" lean-forward="true" selection-start-line="57" selection-start-column="84" selection-end-line="57" selection-end-column="84" />
+            <state relative-caret-position="774">
+              <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -99,8 +94,8 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modulacion/PM/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+            <state relative-caret-position="0">
+              <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -132,10 +127,12 @@
         <option value="$PROJECT_DIR$/modulacion/FM/utils.py" />
         <option value="$PROJECT_DIR$/Pytelesim/settings.py" />
         <option value="$PROJECT_DIR$/modulacion/views.py" />
-        <option value="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" />
+        <option value="$PROJECT_DIR$/modulacion/PM/utils.py" />
         <option value="$PROJECT_DIR$/modulacion/PM/ModulacionPM.py" />
-        <option value="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" />
         <option value="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" />
+        <option value="$PROJECT_DIR$/modulacion/espectros_de_frecuencia/EspectroFrecuencia.py" />
+        <option value="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" />
+        <option value="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" />
       </list>
     </option>
   </component>
@@ -188,6 +185,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="modulacion" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="srcPytelesim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="srcPytelesim" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modulacion" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="espectros_de_frecuencia" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -416,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488523553335</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="funcionando modulacion y demodulacion tanto FM como PM de senos y cosenos">
+      <created>1488605326897</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1488605326897</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -447,7 +469,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="agregando demodulacionFM, se modifico utils.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="agregando demodulacionFM, se modifico utils.py" />
+    <MESSAGE value="funcionando modulacion y demodulacion tanto FM como PM de senos y cosenos" />
+    <option name="LAST_COMMIT_MESSAGE" value="funcionando modulacion y demodulacion tanto FM como PM de senos y cosenos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -476,9 +499,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="26" column="34" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="26" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,14 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modulacion/FM/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -610,36 +623,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/PM/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="53" lean-forward="true" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+        <state relative-caret-position="0">
+          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modulacion/espectros_de_frecuencia/EspectroFrecuencia.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="7" lean-forward="false" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modulacion/FM/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/FM/ModulacionFM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="60" column="44" lean-forward="false" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="54">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="38" />
+        <state relative-caret-position="72">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/PM/ModulacionPM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="85" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="85" />
+        <state relative-caret-position="504">
+          <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
@@ -648,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="57" column="84" lean-forward="true" selection-start-line="57" selection-start-column="84" selection-end-line="57" selection-end-column="84" />
+        <state relative-caret-position="774">
+          <caret line="43" column="35" lean-forward="false" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>

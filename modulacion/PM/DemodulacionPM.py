@@ -41,7 +41,9 @@ class DemodulacionPM:
         self.wm = 2 * np.pi * self.fm
         self.wc = 2 * np.pi * self.fc
 
-    def demodula_funcion_pm(self):
+        self._demodula_funcion_pm()
+
+    def _demodula_funcion_pm(self):
         if self.fun_moduladora == 'cos':
             self.moduladora = self.Vm * sp.cos(self.wm*self.t)
 

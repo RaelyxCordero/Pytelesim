@@ -2,7 +2,7 @@ import numpy as np #numeric
 import sympy as sp #simbolic
 from sympy import *
 
-from modulacion.PM import utils
+import utils
 from .ModulacionFM import ModulacionFM
 
 
@@ -56,7 +56,9 @@ class DemodulacionFM:
         self.wm = 2 * np.pi * self.fm
         self.wc = 2 * np.pi * self.fc
 
-    def demodula_funcion_fm(self):
+        self._demodula_funcion_fm()
+
+    def _demodula_funcion_fm(self):
         self.moduladora = self.Vm * self.deriva_moduladora()
         if self.fun_moduladora == 'cos':
             self.portadora = self.Vc * sp.cos(self.wc*self.t)
