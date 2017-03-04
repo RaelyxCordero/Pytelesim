@@ -1,7 +1,10 @@
-import sympy as sp #simbolic
 import numpy as np #numeric
-import utils
+import sympy as sp #simbolic
 from sympy import *
+
+from modulacion.PM import utils
+from .ModulacionFM import ModulacionFM
+
 
 #execfile('DemodulacionFM.py')
 #obj = DemodulacionFM(5, 10, 'KHz', 'cos', 'cos', 'KHz', m=50.13, fm=15, Vm=10)
@@ -20,8 +23,9 @@ class DemodulacionFM:
 
     def __init__(self, Vc, fc, hzfc,  fun_portadora, fun_moduladora, hzfm, kl=None, fm=None, Vm=None, m=None):
 
-        self.moduladora = None
-        self.portadora = None
+        self.moduladora = 0
+        self.portadora = 0
+        self.modulada = 0
         self.fun_portadora = fun_portadora
         self.fun_moduladora = fun_moduladora
         self.hzfc = hzfc
@@ -32,7 +36,7 @@ class DemodulacionFM:
         self.Vc = Vc
         self.Vm = Vm
         self.fc_real = fc  # fc por parametro
-        self.t = Symbol('t')
+        self.t = Symbol('x')
 
         if kl is not None and Vm is not None and m is not None:
             self.fm_real = self.get_fm() # fm por parametros
@@ -60,6 +64,9 @@ class DemodulacionFM:
         elif self.fun_moduladora == 'sen' or self.fun_moduladora == 'sin':
             self.portadora = self.Vc * sp.sin(self.wc * self.t)
 
+        self.modulada = ModulacionFM(self.fun_moduladora, self.fun_portadora, self.hzfm,
+                                     self.hzfc, self.kl, self.fc, self.fm, self.Vc, self.Vm)
+
         return {'moduladora': self.moduladora, 'portadora': self.portadora}
 
     def deriva_moduladora(self):
@@ -73,14 +80,17 @@ class DemodulacionFM:
         return sp.diff(funcion, self.t)
 
     def get_portadora_str(self):
-        return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
+        return str(self.portadora)
+        # return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
 
     def get_moduladora_str(self):
-        return utils.get_string_portadora(self.fm_real, self.hzfm, self.Vm, self.fun_moduladora)
+        return str(self.moduladora)
+        # return utils.get_string_moduladora(self.fm_real, self.hzfm, self.Vm, self.fun_moduladora)
 
     def get_modulada_str(self):
-        return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
-                                         self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.get_m())
+        return str(self.modulada)
+        # return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
+        #                                  self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.m)
 
 
 
