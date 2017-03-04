@@ -1,0 +1,39 @@
+.titulo-grafica{
+	font-weight: bolder;
+	font-size: larger;
+}
+
+.page-header {
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+    height: 140px;
+    margin-bottom: 0px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+input[type=text] {
+    width: 300px;
+}
+input[type=number] {
+    width: 100px;
+}
+input {
+    padding: 6px;
+}
+
+body,
+html,
+input {
+    font-family: sans-serif;
+    font-size: 11pt;
+}
+
+form {
+    margin: 20px 0;
+}

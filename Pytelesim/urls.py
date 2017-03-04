@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from modulacion.views import ViewModulacionFM
+from modulacion.views import View
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', ViewModulacionFM.as_view()),
+    url(r'^$', View.as_view()),
+    #url(r'^/PM$', ViewPM.as_view()),
 ]

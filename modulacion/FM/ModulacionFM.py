@@ -1,6 +1,6 @@
-import sympy as sp #simbolic
-import numpy as np #numeric
-import utils
+#import sympy as sp #simbolic
+#import numpy as np #numeric
+from . import utils
 from sympy import *
 
 # AGREGAR RUIDO
