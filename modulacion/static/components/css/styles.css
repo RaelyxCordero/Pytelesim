@@ -37,3 +37,15 @@ input {
 form {
     margin: 20px 0;
 }
+
+.eq {
+    float: left;
+}
+.eq input {
+    width: 70px;
+    display: inline;
+}
+
+.label-signal {
+    font-weight: bolder;
+}
