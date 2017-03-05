@@ -1,15 +1,14 @@
-
-import numpy as np #numeric
-import sympy as sp #simbolic
+import numpy as np  # numeric
+import sympy as sp  # simbolic
 
 from . import utils
 
 
 # AGREGAR RUIDO
-#Validar Hz y no hz
+# Validar Hz y no hz
 
 class ModulacionFM:
-    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, kl, fc, fm, vc, vm):
+    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, kl, fc, fm, vc, vm, noise=False):
         self.fun_moduladora = fun_moduladora
         self.fun_portadora = fun_portadora
         self.kl = kl
@@ -29,31 +28,36 @@ class ModulacionFM:
         self.wm = 0
         self.m = 0
 
+        if noise is True:
+            self.noise = np.random.normal(0, 1, 100)
+        else:
+            self.noise = 0
+
         self._modula_funcion_fm()
 
     def _modula_funcion_fm(self):
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
 
-        self.wm = 2*np.pi*self.fm
-        self.wc = 2*np.pi*self.fc
+        self.wm = 2 * np.pi * self.fm
+        self.wc = 2 * np.pi * self.fc
         self.m = (self.kl * self.Vm) / self.wm
 
         if self.fun_moduladora == 'cos':
-            self.moduladora = self.Vm*sp.cos(self.wm*self.t)
+            self.moduladora = self.Vm * sp.cos(self.wm * self.t)
 
         elif self.fun_moduladora == 'sen' or self.fun_moduladora == 'sin':
-            self.moduladora = self.Vm*sp.sin(self.wm*self.t)
+            self.moduladora = self.Vm * sp.sin(self.wm * self.t)
 
         integral = self._integra_kl_vmt(self.kl, self.moduladora)
 
         if self.fun_portadora == 'cos':
-            self.portadora = self.Vc*sp.cos(self.wc*self.t)
-            self.modulada = self.Vc*sp.cos((self.wc*self.t) + integral)
+            self.portadora = self.Vc * sp.cos(self.wc * self.t)
+            self.modulada = self.Vc * sp.cos((self.wc * self.t) + integral) + self.noise
 
         elif self.fun_portadora == 'sen' or self.fun_moduladora == 'sin':
-            self.portadora = self.Vc*sp.sin(self.wc*self.t)
-            self.modulada = self.Vc*sp.sin(self.wc*self.t + integral)
+            self.portadora = self.Vc * sp.sin(self.wc * self.t)
+            self.modulada = self.Vc * sp.sin(self.wc * self.t + integral) + self.noise
 
         return self.modulada
 
@@ -75,7 +79,7 @@ class ModulacionFM:
 
     def get_portadora_str(self):
         return str(self.portadora)
-        #return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
+        # return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
 
     def get_moduladora_str(self):
         return str(self.moduladora)
@@ -85,5 +89,3 @@ class ModulacionFM:
         return str(self.modulada)
         # return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
         #                                  self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.get_m())
-
-

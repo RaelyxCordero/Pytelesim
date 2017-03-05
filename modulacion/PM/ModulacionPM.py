@@ -6,7 +6,7 @@ import utils
 # Validar Hz y no hz
 
 class ModulacionPM:
-    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, k, fc, fm, vc, vm):
+    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, k, fc, fm, vc, vm, noise=False):
         self.fun_moduladora = fun_moduladora
         self.fun_portadora = fun_portadora
         self.k = k
@@ -25,6 +25,11 @@ class ModulacionPM:
         self.wc = 0
         self.wm = 0
         self.m = 0
+
+        if noise is True:
+            self.noise = np.random.normal(0,1,100)
+        else:
+            self.noise = 0
 
         self._modula_funcion_pm()
 
@@ -46,11 +51,11 @@ class ModulacionPM:
 
         if self.fun_portadora == 'cos':
             self.portadora = self.Vc * sp.cos(self.wc * self.t)
-            self.modulada = self.Vc * sp.cos((self.wc * self.t) + funcion_mod)
+            self.modulada = self.Vc * sp.cos((self.wc * self.t) + funcion_mod) + self.noise
 
         elif self.fun_portadora == 'sen' or self.fun_moduladora == 'sin':
             self.portadora = self.Vc * sp.sin(self.wc * self.t)
-            self.modulada = self.Vc * sp.sin(self.wc * self.t + funcion_mod)
+            self.modulada = self.Vc * sp.sin(self.wc * self.t + funcion_mod) + self.noise
 
         return self.modulada
 
