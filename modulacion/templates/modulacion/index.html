@@ -10,10 +10,11 @@
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             <div class="col-md-12">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <div class="form-group">
                         <p class="label-signal">Moduladora:</p>
                         $Vm(t) = V{\small m}*{\cos}(2*{\pi}*f{\small m}*t)$
+                        <br>
                         <div class="eq">
                             <span class="label-signal">$Vm(t) = $</span>
                             <input class="form-control" type="number" id="vm" name="vm" placeholder="Vm" value="1" />
@@ -27,8 +28,12 @@
                             <span class="label-signal">$*t)$</span>
                         </div>
                         <input type="hidden" name="eq-moduladora" id="eq-moduladora">
-                        <p class="label-signal">Portadora:</p>
-                        $Vc(t) = V{\small c}*{\cos}(2*{\pi}*f{\small c}*t)$
+                        <div></div>
+                        <div class="form-group">
+                          <p class="label-signal">Portadora:</p>
+                          $Vc(t) = V{\small c}*{\cos}(2*{\pi}*f{\small c}*t)$
+                        </div>
+                        
                         <div class="eq">
                             <span class="label-signal">$Vc(t) = $</span>
                             <input class="form-control" type="number" id="vc" name="vc" placeholder="Vc" value="4" />
@@ -44,7 +49,7 @@
                         <input type="hidden" id="eq-portadora" name="eq-portadora" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <label for="kl">$K{\small l}$:</label>
                     <input class="form-control" type="number" name="kl" id="kl" value="" />
                     <label for="kl">$m$:</label>
@@ -83,7 +88,7 @@
                         <input class="form-control" type="number" id="fm_modulada" name="fm_modulada" placeholder="Fm" value="100" />
                         <span class="label-signal">$*t)$</span>
                     </div>
-                    <input type="hidden" id="eq-modulada">
+                    <input type="text" name="eq-modulada" id="eq-modulada" value="4*cos(2*pi*2*x - 4*sin(2*pi*1.5*x))">
                     <!-- "4*cos(2*pi*2*x + 4*sin(2*pi*1.5*x))" /> 6*cos(100*pi*x+70*cos(30*pi*x))-->
                 </div>
                 <button class="btn btn-danger" onclick="demodulate()"><b>Demodular</b></button>
