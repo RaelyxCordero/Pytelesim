@@ -2,7 +2,7 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
 
-import utils
+from . import utils
 
 
 # AGREGAR RUIDO
@@ -75,7 +75,7 @@ class ModulacionFM:
 
     def get_portadora_str(self):
         return str(self.portadora)
-        # return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
+        #return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
 
     def get_moduladora_str(self):
         return str(self.moduladora)
