@@ -6,6 +6,22 @@ def get_string_moduladora(fm_real, hzfm, Vm, fun_moduladora):
     hz = switch_hz_string(hzfm)
     return str(Vm) + fun_moduladora + '(' + str(wm) + hz + 't)'
 
+def signo_en_funcion(string):
+    sign = 1
+    if '-' in string:
+        sign = -1
+    return sign
+
+def funcion_en_string(string, wm, t):
+    if 'sen' in string or 'sin' in string:
+        return sp.sin(wm * t)
+    elif 'cos' in string:
+        return sp.cos(wm * t)
+
+def integra_vmt(moduladora):
+    funcion = moduladora
+    return sp.integrate(funcion, sp.Symbol('x'))
+
 def get_string_portadora(fc_real, hzfc, Vc, fun_portadora):
     wc = 2 * np.pi * fc_real
     hz = switch_hz_string(hzfc)
