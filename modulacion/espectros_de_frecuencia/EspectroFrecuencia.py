@@ -52,7 +52,9 @@ class EspectroFrecuencia:
         # return coeficientes_bessel[str(self.n)]
 
     def get_amplitudes_espectros(self):
+        print('get_amplitudes')
         items = self.get_indices_bessel()
+        print(items)
         i = 0
         amplitudes = (items[i] * self.Vc, )
         i = i + 1

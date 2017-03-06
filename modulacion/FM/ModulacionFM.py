@@ -1,7 +1,7 @@
 import numpy as np  # numeric
 import sympy as sp  # simbolic
 
-import utils
+from . import utils
 
 # execfile('ModulacionFM.py')
 # obj = ModulacionFM(fun_moduladora='-sen', fun_portadora='cos', hz_fm='Hz', hz_fc='Hz', kl=50, fc=3000, fm=50, vc=20, vm=10, noise=False)
@@ -43,10 +43,8 @@ class ModulacionFM:
 
     def _modula_funcion_fm(self):
         signo_moduladora = utils.signo_en_funcion(self.fun_moduladora)
-        print('signo moduladora' + str(signo_moduladora))
 
         funcion_moduladora = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
-        print('funcion_moduladora ' + str(funcion_moduladora))
 
         self.moduladora = self.Vm * (signo_moduladora * funcion_moduladora)
         integral = self._integra_kl_vmt(self.kl, self.moduladora)

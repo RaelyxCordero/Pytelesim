@@ -2,8 +2,9 @@ import numpy as np #numeric
 import sympy as sp #simbolic
 from sympy import *
 
+
 from . import utils
-from .ModulacionFM import ModulacionFM
+from . import ModulacionFM
 
 
 

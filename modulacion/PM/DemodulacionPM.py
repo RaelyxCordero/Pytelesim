@@ -2,7 +2,7 @@ import numpy as np #numeric
 import sympy as sp #simbolic
 from . import utils
 
-import ModulacionPM
+from . import ModulacionPM
 
 #execfile('DemodulacionPM.py')
 #obj = DemodulacionPM(Vc=5, fc=10, hzfc='KHz', fun_portadora='cos', fun_moduladora= 'cos', hzfm= 'KHz', m=50.13, fm=15, Vm=10)

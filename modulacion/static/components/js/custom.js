@@ -5,7 +5,7 @@ var modx = "";
 
 $(document).ready(function() {
     modalidad('FM');
-    drawSpectrum();
+    
 });
 
 function modalidad(mod) {
@@ -86,6 +86,7 @@ function drawModulada(fun, T, A) {
         alert(err);
     }
 }
+var espectro;
 
 function modulate() {
     vm = $("#vm").val();
@@ -123,10 +124,13 @@ function modulate() {
                 $('#kl_modulada').val(kl);
                 $('#vmt_modulada').val(vmt);
                 $('#fm_modulada').val(fm);
+                espectro = data.espectro;
                 console.log(data);
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
                 drawModulada('modulada', 1 / (fc * fm), vc);
+                console.log('espectro.amplitudes.length: '+espectro.amplitudes.length);
+                drawSpectrum();
             }
         });
     }
@@ -147,6 +151,7 @@ function modulate() {
                 $('#kl_modulada').val(kl);
                 $('#vmt_modulada').val(vmt);
                 $('#fm_modulada').val(fm);
+                espectro = data.espectro;
                 console.log(data);
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
@@ -184,6 +189,7 @@ function demodulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
+                espectro = data.espectro;
                 console.log(data);
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
@@ -202,6 +208,7 @@ function demodulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
+                espectro = data.espectro;
                 console.log(data);
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
@@ -211,6 +218,62 @@ function demodulate() {
     }
 }
 
-function drawSpectrum(){
-    
+function drawSpectrum() {
+    seriesx = [];
+    for (var i = 0; i < espectro.amplitudes.length; i++) {
+        data = {};
+        if (i = 0) {
+            data.data = [
+                [espectro.frecuencias.f0, 0],
+                [espectro.frecuencias.f0, espectro.amplitudes[i]]
+            ];
+        } else {
+            data.data = [
+                [espectro.frecuencias["f" + i], 0],
+                [espectro.frecuencias["f" + i], espectro.amplitudes[i]]
+            ];
+        }
+        seriesx.push(data);
+    }
+    console.log(seriesx);
+    Highcharts.chart('spectrum', {
+        chart: {
+            type: 'scatter',
+            margin: [70, 50, 60, 80]
+        },
+        xAxis: {
+            gridLineWidth: 1,
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            maxZoom: 60,
+            title: {
+                text: 'Frecuencia(Hz)'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Amplitud(V)'
+            },
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            maxZoom: 60,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                lineWidth: 1,
+            }
+        },
+        series: seriesx
+    });
 }
