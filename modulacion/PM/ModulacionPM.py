@@ -5,8 +5,11 @@ from . import utils
 # AGREGAR RUIDO
 # Validar Hz y no hz
 
+#execfile('ModulacionPM.py')
+#obj = ModulacionPM(fun_moduladora='sin', fun_portadora='cos', hz_fm='KHz', hz_fc='KHz', k=50, fc=30, fm=1, vc=6, vm=2, noise=False)
+
 class ModulacionPM:
-    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, k, fc, fm, vc, vm):
+    def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, k, fc, fm, vc, vm, noise=False):
         self.fun_moduladora = fun_moduladora
         self.fun_portadora = fun_portadora
         self.k = k
@@ -26,9 +29,11 @@ class ModulacionPM:
         self.wm = 0
         self.m = 0
 
-        self._modula_funcion_pm()
+        if noise is True:
+            self.noise = np.random.normal(0,1,100)
+        else:
+            self.noise = 0
 
-    def _modula_funcion_pm(self):
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
 
@@ -36,45 +41,35 @@ class ModulacionPM:
         self.wc = 2 * np.pi * self.fc
         self.m = self.k * self.Vm
 
-        if self.fun_moduladora == 'cos':
-            self.moduladora = self.Vm * sp.cos(self.wm * self.t)
+        self._modula_funcion_pm()
 
-        elif self.fun_moduladora == 'sen' or self.fun_moduladora == 'sin':
-            self.moduladora = self.Vm * sp.sin(self.wm * self.t)
+    def _modula_funcion_pm(self):
+
+        signo_moduladora = utils.signo_en_funcion(self.fun_moduladora)
+        funcion_moduladora = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
+
+        self.moduladora = self.Vm * (signo_moduladora * funcion_moduladora)
 
         funcion_mod = self.k * self.moduladora
 
-        if self.fun_portadora == 'cos':
-            self.portadora = self.Vc * sp.cos(self.wc * self.t)
-            self.modulada = self.Vc * sp.cos((self.wc * self.t) + funcion_mod)
+        signo_portadora = utils.signo_en_funcion(self.fun_portadora)
+        funcion_portadora = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
-        elif self.fun_portadora == 'sen' or self.fun_moduladora == 'sin':
-            self.portadora = self.Vc * sp.sin(self.wc * self.t)
-            self.modulada = self.Vc * sp.sin(self.wc * self.t + funcion_mod)
+        self.portadora = self.Vc * (signo_portadora * funcion_portadora)
+
+        if 'cos' in self.fun_portadora:
+            self.modulada = self.Vc * (signo_portadora * sp.cos((self.wc * self.t) + funcion_mod)) + self.noise
+
+        elif 'sen' in self.fun_portadora or 'sin' in self.fun_portadora:
+            self.modulada = self.Vc * (signo_portadora * sp.sin(self.wc * self.t + funcion_mod)) + self.noise
 
         return self.modulada
 
-    def get_moduladora(self):
-        if self.moduladora is None:
-            return 'no hay moduladora'
-        else:
-            return self.moduladora
-
-    def get_portadora(self):
-        if self.portadora is None:
-            return 'no hay portadora'
-        else:
-            return self.portadora
-
     def get_portadora_str(self):
         return str(self.portadora)
-        # return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
 
     def get_moduladora_str(self):
         return str(self.moduladora)
-        # return utils.get_string_moduladora(self.fm_real, self.hzfm, self.Vm, self.fun_moduladora)
 
     def get_modulada_str(self):
         return str(self.modulada)
-        # return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
-        #                                  self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.m)

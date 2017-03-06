@@ -2,10 +2,10 @@ import numpy as np #numeric
 import sympy as sp #simbolic
 from . import utils
 
-from .ModulacionPM import ModulacionPM
+import ModulacionPM
 
-#execfile('DemodulacionFM.py')
-#obj = DemodulacionFM(5, 10, 'KHz', 'cos', 'cos', 'KHz', m=50.13, fm=15, Vm=10)
+#execfile('DemodulacionPM.py')
+#obj = DemodulacionPM(Vc=5, fc=10, hzfc='KHz', fun_portadora='cos', fun_moduladora= 'cos', hzfm= 'KHz', m=50.13, fm=15, Vm=10)
 
 class DemodulacionPM:
 
@@ -44,35 +44,29 @@ class DemodulacionPM:
         self._demodula_funcion_pm()
 
     def _demodula_funcion_pm(self):
-        if self.fun_moduladora == 'cos':
-            self.moduladora = self.Vm * sp.cos(self.wm*self.t)
+        funcion = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
+        signo = utils.signo_en_funcion(self.fun_moduladora)
 
-        elif self.fun_moduladora == 'sen' or self.fun_moduladora == 'sin':
-            self.moduladora = self.Vm * sp.sin(self.wm * self.t)
+        self.moduladora = self.Vm * (signo * funcion)
 
-        if self.fun_portadora == 'cos':
-            self.portadora = self.Vc * sp.cos(self.wc*self.t)
+        sign = utils.signo_en_funcion(self.fun_portadora)
+        funcion = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
-        elif self.fun_portadora == 'sen' or self.fun_moduladora == 'sin':
-            self.portadora = self.Vc * sp.sin(self.wc * self.t)
+        self.portadora = self.Vc * (sign * funcion)
 
-        self.modulada = ModulacionPM(self.fun_moduladora, self.fun_portadora,
-                                     self.hzfm, self.hzfc, self.k, self.fc, self.fm, self.Vc, self.Vm)
+        self.modulada = ModulacionPM.ModulacionPM(self.fun_moduladora, self.fun_portadora,
+                                     self.hzfm, self.hzfc, self.k, self.fc, self.fm, self.Vc, self.Vm).modulada
 
         return {'moduladora': self.moduladora, 'portadora': self.portadora}
 
     def get_portadora_str(self):
         return str(self.portadora)
-        # return utils.get_string_portadora(self.fc_real, self.hzfc, self.Vc, self.fun_portadora)
 
     def get_moduladora_str(self):
         return str(self.moduladora)
-        # return utils.get_string_moduladora(self.fm_real, self.hzfm, self.Vm, self.fun_moduladora)
 
     def get_modulada_str(self):
         return str(self.modulada)
-        # return utils.get_string_modulada(self.fm_real, self.hzfm, self.fun_moduladora,
-        #                                  self.fc_real, self.hzfc, self.Vc, self.fun_portadora, self.m)
 
 
 
