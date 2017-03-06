@@ -1,6 +1,6 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
-import utils
+from . import utils
 
 from .ModulacionPM import ModulacionPM
 

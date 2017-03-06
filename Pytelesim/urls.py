@@ -17,9 +17,16 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from modulacion.views import View
+from modulacion.views import ModFMView
+from modulacion.views import DemodFMView
+from modulacion.views import ModPMView
+from modulacion.views import DemodPMView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', View.as_view()),
-    #url(r'^/PM$', ViewPM.as_view()),
+    url(r'^modulate-fm/$', ModFMView.as_view()),
+    url(r'^demodulate-fm/$',DemodFMView.as_view()),
+    url(r'^modulate-pm/$', ModPMView.as_view()),
+    url(r'^demodulate-pm/$',DemodPMView.as_view())
 ]

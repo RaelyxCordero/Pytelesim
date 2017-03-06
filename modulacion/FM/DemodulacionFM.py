@@ -2,7 +2,7 @@ import numpy as np #numeric
 import sympy as sp #simbolic
 from sympy import *
 
-import utils
+from . import utils
 from .ModulacionFM import ModulacionFM
 
 
