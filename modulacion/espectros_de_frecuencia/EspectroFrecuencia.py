@@ -1,6 +1,6 @@
 
-m_bandas =(0, 0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15)
-n_j_bandas =(0, 1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 16)
+m_bandas =  (0, 0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7,   8, 9, 10, 12, 15)
+n_j_bandas =(0, 1,      2, 3, 4,   4,   5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 16)
 
 coeficientes_bessel = {
     '0': (1),
@@ -47,7 +47,9 @@ class EspectroFrecuencia:
                     i = i + 1
 
     def get_indices_bessel(self):
-        return coeficientes_bessel[str(self.n)]
+        index = n_j_bandas.index(self.n)
+        return coeficientes_bessel[str(m_bandas[index])]
+        # return coeficientes_bessel[str(self.n)]
 
     def get_amplitudes_espectros(self):
         items = self.get_indices_bessel()
@@ -66,12 +68,12 @@ class EspectroFrecuencia:
 
     def get_frecuencias_espectros(self):
         frecuencias_pares = {}
-        frecuencias_pares['j0'] = self.fc
+        frecuencias_pares['f0'] = self.fc
         i = 1
         fli = self.fc - self.fm
         fls = self.fc + self.fm
         while i <= self.n:
-            frecuencias_pares['j'+str(i)] = (fli, fls)
+            frecuencias_pares['f'+str(i)] = (fli, fls)
             fli = fli - self.fm
             fls = fls + self.fm
             i = i + 1
