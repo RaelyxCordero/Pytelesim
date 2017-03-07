@@ -7,6 +7,12 @@ def saw(amp, f, t):
 def triangle(amp, f, t):
     return (2*amp/np.pi) * sp.asin(sp.sin(2*np.pi*f*t))
 
+def triangle_integrate(amp, f, t):
+    u = sp.sin(2*np.pi*f*t)
+    amplitud = ((2 * amp * u )/(np.pi * sp.cos(2*np.pi*f*t)) )
+    raiz = 1 - (u**2)
+    return ( amplitud * sp.asin(u) ) + sp.sqrt( raiz)
+
 def saw_no_amp(f, t):
     return sp.atan(sp.cot(np.pi*f*t))
 
@@ -32,7 +38,8 @@ def funcion_en_string(string, wm, t):
     elif 'saw' in string:
         return saw_no_amp((wm/2*np.pi), t)
 
-
+def deriva_vmt(modulada):
+    return sp.diff(modulada, sp.Symbol('x'))
 
 def integra_vmt(moduladora):
     return sp.integrate(moduladora, sp.Symbol('x'))

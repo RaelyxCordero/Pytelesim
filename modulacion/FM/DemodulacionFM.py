@@ -1,25 +1,12 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
-from sympy import *
 
-
-from . import utils
-from . import ModulacionFM
-
-
+import utils
+import ModulacionFM
 
 #execfile('DemodulacionFM.py')
 #obj = DemodulacionFM(Vc=5, fc=10, hzfc='KHz', fun_portadora='cos', fun_moduladora='cos', hzfm='KHz', m=50.13, fm=15, Vm=10)
 class DemodulacionFM:
-
-    def get_kl(self):
-        return (self.m * self.fm_real) / self.Vm
-
-    def get_Vm(self):
-        return (self.m * self.fm_real) / self.kl
-
-    def get_m(self):
-        return (self.kl * self.Vm) / self.fm_real
 
     def __init__(self, Vc, fc, hzfc, fun_portadora, fun_moduladora, hzfm, fm, kl=None, Vm=None, m=None):
 
@@ -34,18 +21,20 @@ class DemodulacionFM:
         self.fm_real = fm # fm por parametros
         self.m = m
         self.Vc = Vc
+        self.Vc_sierra = (2 * self.Vc) / np.pi
         self.Vm = Vm
+        self.Vm_sierra = (2 * self.Vm) / np.pi
         self.fc_real = fc  # fc por parametro
-        self.t = Symbol('x')
+        self.t = sp.Symbol('x')
 
         if m is not None and fm is not None and Vm is not None:
-            self.kl = self.get_kl()
+            self.kl = (self.m * self.fm_real) / self.Vm
 
         elif m is not None and fm is not None and kl is not None:
-            self.Vm = self.get_Vm()
+            self.Vm = (self.m * self.fm_real) / self.kl
 
         elif kl is not None and Vm is not None and fm is not None:
-            self.m = self.get_m()
+            self.m = (self.kl * self.Vm) / self.fm_real
 
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
@@ -56,12 +45,19 @@ class DemodulacionFM:
         self._demodula_funcion_fm()
 
     def _demodula_funcion_fm(self):
+
         self.moduladora = self.Vm * self.deriva_moduladora()
 
         sign = utils.signo_en_funcion(self.fun_portadora)
         funcion = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
-        self.portadora = self.Vc * (sign * funcion)
+        if 'saw' in self.fun_portadora:
+            self.portadora = (-1) * self.Vm_sierra * (sign * funcion)
+
+        elif 'tri' in self.fun_portadora:
+            self.portadora = self.Vm_sierra * (sign * funcion)
+        else:
+            self.portadora = self.Vc * (sign * funcion)
 
         fun_moduladora = ''
 
@@ -73,6 +69,7 @@ class DemodulacionFM:
             fun_moduladora = '-sen'
         elif self.fun_moduladora == '-cos':
             fun_moduladora = 'sen'
+
 
         self.modulada = ModulacionFM.ModulacionFM(fun_moduladora, self.fun_portadora, self.hzfm,
                                      self.hzfc, self.kl, self.fc, self.fm, self.Vc, self.Vm).modulada
