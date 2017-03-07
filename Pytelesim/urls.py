@@ -21,6 +21,8 @@ from modulacion.views import ModFMView
 from modulacion.views import DemodFMView
 from modulacion.views import ModPMView
 from modulacion.views import DemodPMView
+from modulacion.views import CalculoParametrosFMView
+from modulacion.views import CalculoParametrosPMView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,5 +30,7 @@ urlpatterns = [
     url(r'^modulate-fm/$', ModFMView.as_view()),
     url(r'^demodulate-fm/$',DemodFMView.as_view()),
     url(r'^modulate-pm/$', ModPMView.as_view()),
-    url(r'^demodulate-pm/$',DemodPMView.as_view())
+    url(r'^demodulate-pm/$',DemodPMView.as_view()),
+    url(r'^calcparams-pm/$',CalculoParametrosPMView.as_view()),
+    url(r'^calcparams-fm/$',CalculoParametrosFMView.as_view()),
 ]

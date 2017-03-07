@@ -22,6 +22,9 @@ coeficientes_bessel = {
     '15': (-0.01, 0.21, 0.04, -0.19, -0.12, 0.17, 0.21, 0.03, -0.17, -0.22, -0.09, 0.10, 0.24, 0.28, 0.25, 0.18, 0.12)
 }
 
+# execfile('EspectroFrecuencia.py')
+# obj = EspectroFrecuencia(m=5, Vc=100, fc=5000, fm=50)
+
 class EspectroFrecuencia:
     def __init__(self, m, Vc, fc, fm):
         self.m = m
@@ -52,9 +55,9 @@ class EspectroFrecuencia:
         # return coeficientes_bessel[str(self.n)]
 
     def get_amplitudes_espectros(self):
-        print('get_amplitudes')
+        # print('get_amplitudes')
         items = self.get_indices_bessel()
-        print(items)
+        # print(items)
         i = 0
         amplitudes = (items[i] * self.Vc, )
         i = i + 1
