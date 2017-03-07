@@ -11,16 +11,16 @@
     <script src="{% static './components/jquery/dist/jquery.min.js'%}"></script>
     <!-- Bootstrap -->
     <link href="{% static './components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{% static './components/bootstrap.min.js' %}" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- cdns -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.9.3/math.min.js"></script>
+    <script src="{% static './components/highcharts.js' %}"></script>
+    <script src="{% static './components/math.min.js' %}"></script>
     <!-- load http://maurizzzio.github.io/function-plot/ -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    <script src="{% static './components/d3.min.js' %}"></script>
+    <script src="{% static './components/function-plot@1.14.0' %}"></script>
+    <script type="text/javascript" async src="{% static './components/MathJax.js' %}">
     </script>
-    <script type="text/javascript" src="{% static './components/mathjax/asciimath.js' %}">
+    <script type="text/javascript" src="{% static './components/asciimath.js' %}">
     </script>
     <!--Custom JS-->
     <script src="{% static './components/js/custom.js' %}"></script>
