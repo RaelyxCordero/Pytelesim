@@ -224,6 +224,7 @@ function modulate() {
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
                 drawModulada('modulada', 1 / (fc * fm), vc);
+                drawSpectrum();
             }
         });
     }
@@ -262,6 +263,7 @@ function demodulate() {
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
                 drawModulada('modulada', 1 / (fc * fm), vc);
+                drawSpectrum();
             }
         });
     }
@@ -281,6 +283,7 @@ function demodulate() {
                 drawModuladora('moduladora', 1 / fm, vm);
                 drawPortadora('portadora', 1 / fc, vc);
                 drawModulada('modulada', 1 / (fc * fm), vc);
+                drawSpectrum();
             }
         });
     }
@@ -288,22 +291,25 @@ function demodulate() {
 
 function drawSpectrum() {
     seriesx = [];
-    for (i = 0; i < espectro.amplitudes.length; i++) {
-        console.log("ciclo: "+i)
-        data = [];
+    for (var i = 0; i < espectro.amplitudes.length; i++) {
+        data = {};
         if (i == 0) {
-            data = [
+            data.data = [
                 [espectro.frecuencias.f0, 0],
-                [espectro.frecuencias.f0, espectro.amplitudes[i]]
+                [espectro.frecuencias.f0, Math.abs(espectro.amplitudes[i])]
             ];
         } else {
+            datb = {};
             data.data = [
-//                espectro.frecuencias["f" + i][1]
-                [espectro.frecuencias["f" + i], 0],
-                [espectro.frecuencias["f" + i], espectro.amplitudes[i]]
+                [espectro.frecuencias["f" + i][0], 0],
+                [espectro.frecuencias["f" + i][0], Math.abs(espectro.amplitudes[i])]
             ];
-            //falta otro data apend igual al anterior
-       }
+            datb.data = [
+                [espectro.frecuencias["f" + i][1], 0],
+                [espectro.frecuencias["f" + i][1], Math.abs(espectro.amplitudes[i])]
+            ];
+            seriesx.push(datb);
+        }
         seriesx.push(data);
     }
     console.log(seriesx);
@@ -348,5 +354,3 @@ function drawSpectrum() {
         series: seriesx
     });
 }
-
-[{data:[ [],[] ] },{}]
