@@ -5,7 +5,7 @@ var modx = "";
 
 $(document).ready(function() {
     modalidad('FM');
-    
+
 });
 
 function modalidad(mod) {
@@ -18,7 +18,7 @@ function modalidad(mod) {
     }
 }
 
-function drawModuladora(fun, T, A) {
+function drawModuladora(T, A) {
     try {
         var moduladora = functionPlot({
             width: width,
@@ -41,7 +41,7 @@ function drawModuladora(fun, T, A) {
     }
 }
 
-function drawPortadora(fun, T, A) {
+function drawPortadora(T, A) {
     try {
         var portadora = functionPlot({
             width: width,
@@ -64,7 +64,7 @@ function drawPortadora(fun, T, A) {
     }
 }
 
-function drawModulada(fun, T, A) {
+function drawModulada(T, A) {
     try {
         var modulada = functionPlot({
             width: width,
@@ -126,10 +126,10 @@ function modulate() {
                 $('#fm_modulada').val(fm);
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora('moduladora', 1 / fm, vm);
-                drawPortadora('portadora', 1 / fc, vc);
+                drawModuladora(1 / fm, vm);
+                drawPortadora(1 / fc, vc);
                 drawModulada('modulada', 1 / (fc * fm), vc);
-                console.log('espectro.amplitudes.length: '+espectro.amplitudes.length);
+                console.log('espectro.amplitudes.length: ' + espectro.amplitudes.length);
                 drawSpectrum();
             }
         });
@@ -153,9 +153,9 @@ function modulate() {
                 $('#fm_modulada').val(fm);
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora('moduladora', 1 / fm, vm);
-                drawPortadora('portadora', 1 / fc, vc);
-                drawModulada('modulada', 1 / (fc * fm), vc);
+                drawModuladora(1 / fm, vm);
+                drawPortadora(1 / fc, vc);
+                drawModulada(1 / (fc * fm), vc);
                 drawSpectrum();
             }
         });
@@ -192,9 +192,9 @@ function demodulate() {
                 $('#eq-modulada').val(data.modulada);
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora('moduladora', 1 / fm, vm);
-                drawPortadora('portadora', 1 / fc, vc);
-                drawModulada('modulada', 1 / (fc * fm), vc);
+                drawModuladora(1 / fm, vm);
+                drawPortadora(1 / fc, vc);
+                drawModulada(1 / (fc * fm), vc);
                 drawSpectrum();
             }
         });
@@ -212,9 +212,9 @@ function demodulate() {
                 $('#eq-modulada').val(data.modulada);
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora('moduladora', 1 / fm, vm);
-                drawPortadora('portadora', 1 / fc, vc);
-                drawModulada('modulada', 1 / (fc * fm), vc);
+                drawModuladora(1 / fm, vm);
+                drawPortadora(1 / fc, vc);
+                drawModulada(1 / (fc * fm), vc);
                 drawSpectrum();
             }
         });
@@ -244,11 +244,14 @@ function drawSpectrum() {
         }
         seriesx.push(data);
     }
-    console.log(seriesx);
     Highcharts.chart('spectrum', {
         chart: {
             type: 'scatter',
-            margin: [70, 50, 60, 80]
+            zoomType: 'xy',
+            //margin: [70, 50, 60, 80]
+        },
+        title: {
+            text: 'Espectro de Frecuencias'
         },
         xAxis: {
             gridLineWidth: 1,
@@ -280,7 +283,7 @@ function drawSpectrum() {
         },
         plotOptions: {
             series: {
-                lineWidth: 1,
+                lineWidth: 2,
             }
         },
         series: seriesx
