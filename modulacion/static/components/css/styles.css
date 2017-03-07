@@ -49,3 +49,12 @@ form {
 .label-signal {
     font-weight: bolder;
 }
+
+.hidden {
+    display:none;
+}
+
+.input-modal-1 {
+    display: inline;
+    width: 200px;
+}

@@ -20,18 +20,13 @@
     <script src="https://wzrd.in/standalone/function-plot@1.14.0"></script>
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
+    <script type="text/javascript" src="{% static './components/mathjax/asciimath.js' %}">
+    </script>
     <!--Custom JS-->
     <script src="{% static './components/js/custom.js' %}"></script>
     <script src="{% static './components/js/DjangoAjax.js' %}"></script>
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [['$','$'], ['\\(','\\)']]
-            },
-            CommonHTML: {
-                scale: 100
-            }
-        });
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] }, CommonHTML: { scale: 100 }, AsciiMath: { displaystyle: true, decimalsign: "." } });
     </script>
     <!--Custom CSS-->
     <link href="{% static './components/css/styles.css' %}" rel="stylesheet">
@@ -44,8 +39,7 @@
         <button class="btn btn-default" onclick="modalidad('PM')">PM</button>
     </div>
     <div class="col-md-2" align="center">
-        <button class="btn btn-default" onclick="calculo_datos()">Ver Datos</button>
-        <button class="btn btn-default">Agregar Ruido</button>
+        <button class="btn btn-success" onclick="show_modal()">Ver Datos</button>
     </div>
     <div class="content container col-md-10" align="center">
         <div class="row">
