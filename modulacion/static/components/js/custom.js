@@ -119,17 +119,26 @@ function calculo_datos() {
     fc = $("#fc").val();
     kl = $("#kl").val();
     m = $("#m").val();
-    var post_data = {
-        'vm': vm,
-        'vmt': vmt,
-        'fm': fm,
-        'vc': vc,
-        'vct': vct,
-        'fc': fc,
-        'kl': kl,
-        'm': m
-    };
+    ruido = $("#ruido").is(":checked");
+
     if (modx == 'FM') {
+        t = $("#tiempof").val();
+        dw = $("#deltaw").val();
+        dv = $("#deltavf").val();
+        var post_data = {
+            'vm': vm,
+            'vmt': vmt,
+            'fm': fm,
+            'vc': vc,
+            'vct': vct,
+            'fc': fc,
+            'kl': kl,
+            'm': m,
+            't': t,
+            'dw': dw,
+            'dv': dv,
+            'ruido': ruido
+        };
         $.ajax({
             url: "http://localhost:8000/calcparams-fm/",
             type: 'POST',
@@ -137,11 +146,34 @@ function calculo_datos() {
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data)
+                console.log(data);
+                $("#deltaf").val(data.desv_frecuencia);
+                $("#titapdet").val(data.desv_inst_frecuencia);
+                $("#f_instantanea").val(data.frecuencia_inst);
+                $("#sensibkl").val(data.kl);
+                $("#Bbesselfr").val(data.a_banda_bessel);
+                $("#Bcarsonfr").val(data.a_banda_carson);
             }
         });
     }
     if (modx == 'PM') {
+        t = $("#tiempo").val();
+        dv = $("#deltav").val();
+        df = $("#deltaaf").val();
+        var post_data = {
+            'vm': vm,
+            'vmt': vmt,
+            'fm': fm,
+            'vc': vc,
+            'vct': vct,
+            'fc': fc,
+            'kl': kl,
+            'm': m,
+            't': t,
+            'dv': dv,
+            'df': df,
+            'ruido': ruido
+        };
         $.ajax({
             url: "http://localhost:8000/calcparams-pm/",
             type: 'POST',
@@ -149,12 +181,33 @@ function calculo_datos() {
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data)
+                console.log(data);
+                $("#deltatita").val(data.desv_fase);
+                $("#titadet").val(data.desv_inst_fase);
+                $("#tita_instantanea").val(data.fase_inst);
+                $("#sensibk").val(data.k);
+                $("#Bbesself").val(data.a_banda_bessel);
+                $("#Bcarsonf").val(data.a_banda_carson);
             }
         });
     }
 }
 
+function show_modal() {
+    $('#myModal').modal('show');
+    $("#modal-fm").addClass('hidden');
+    $("#modal-pm").addClass('hidden');
+    if (modx == 'FM') {
+        $('#modal-fm').toggleClass('hidden');
+    }
+    if (modx == 'PM') {
+        $('#modal-pm').toggleClass('hidden');
+    }
+}
+
+function close_modal() {
+    $('#myModal').modal('hide');
+}
 
 function modulate() {
     vm = $("#vm").val();
@@ -165,6 +218,8 @@ function modulate() {
     fc = $("#fc").val();
     kl = $("#kl").val();
     m = $("#m").val();
+    ruido = $("#ruido").is(":checked");
+    console.log('ruido: '+ruido);
     var post_data = {
         'vm': vm,
         'vmt': vmt,
@@ -173,7 +228,8 @@ function modulate() {
         'vct': vct,
         'fc': fc,
         'kl': kl,
-        'm': m
+        'm': m,
+        'ruido': ruido
     };
     if (modx == 'FM') {
         $.ajax({
@@ -196,7 +252,7 @@ function modulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada('modulada', 1 / (fc * fm), vc);
+                drawModulada(1 / (fc * fm), vc);
                 console.log('espectro.amplitudes.length: ' + espectro.amplitudes.length);
                 drawSpectrum();
             }
@@ -229,6 +285,7 @@ function modulate() {
         });
     }
 }
+var demod_fm, demod_fc;
 
 function demodulate() {
     vc = $('#vc_modulada').val();
@@ -258,6 +315,9 @@ function demodulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
+                demod_fm = data.fm;
+                demod_fc = data.fc;
+                vm = data.vm;
                 espectro = data.espectro;
                 console.log(data);
                 drawModuladora(1 / fm, vm);
@@ -279,6 +339,9 @@ function demodulate() {
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
                 espectro = data.espectro;
+                demod_fm = data.fm;
+                demod_fc = data.fc;
+                vm = data.vm;
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
@@ -334,9 +397,9 @@ function drawSpectrum() {
             title: {
                 text: 'Amplitud(V)'
             },
+            id: 'my_y',
             minPadding: 0.2,
             maxPadding: 0.2,
-            maxZoom: 60,
             plotLines: [{
                 value: 0,
                 width: 1,
@@ -356,4 +419,9 @@ function drawSpectrum() {
         },
         series: seriesx
     });
+    var chart = $('#spectrum').highcharts();
+    var yAxis = chart.get('my_y');
+    var extremes = yAxis.getExtremes();
+    var min = extremes.min;
+    yAxis.setExtremes(min,$('#vc').val());
 }
