@@ -1,6 +1,6 @@
 import sympy as sp  # simbolic
 import numpy as np  # numeric
-from . import utils
+import utils
 
 # AGREGAR RUIDO
 # Validar Hz y no hz
@@ -18,7 +18,9 @@ class ModulacionPM:
         self.hzfc = hz_fc
         self.hzfm = hz_fm
         self.Vc = vc
+        self.Vc_sierra = (2 * self.Vc)/np.pi
         self.Vm = vm
+        self.Vm_sierra = (2 * self.Vm)/np.pi
         self.t = sp.Symbol('x')
         self.moduladora = 0
         self.portadora = 0
@@ -39,7 +41,14 @@ class ModulacionPM:
 
         self.wm = 2 * np.pi * self.fm
         self.wc = 2 * np.pi * self.fc
-        self.m = self.k * self.Vm
+
+        if 'saw' in self.fun_moduladora:
+            self.m = (self.k * self.Vm_sierra)
+
+        elif 'tri' in self.fun_moduladora:
+            self.m = (self.k * self.Vm_sierra)
+        else:
+            self.m = self.k * self.Vm
 
         self._modula_funcion_pm()
 
@@ -48,20 +57,44 @@ class ModulacionPM:
         signo_moduladora = utils.signo_en_funcion(self.fun_moduladora)
         funcion_moduladora = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
 
-        self.moduladora = self.Vm * (signo_moduladora * funcion_moduladora)
+        if 'saw' in self.fun_moduladora:
+            self.moduladora = (-1) * self.Vm_sierra * (signo_moduladora * funcion_moduladora)
+
+        elif 'tri' in self.fun_moduladora:
+            self.moduladora = self.Vm_sierra * (signo_moduladora * funcion_moduladora)
+        else:
+            self.moduladora = self.Vm * (signo_moduladora * funcion_moduladora)
 
         funcion_mod = self.k * self.moduladora
 
         signo_portadora = utils.signo_en_funcion(self.fun_portadora)
         funcion_portadora = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
-        self.portadora = self.Vc * (signo_portadora * funcion_portadora)
+        if 'saw' in self.fun_portadora:
+            self.portadora = (-1) * self.Vm_sierra * (signo_portadora * funcion_portadora)
+
+        elif 'tri' in self.fun_portadora:
+            self.portadora = self.Vm_sierra * (signo_portadora * funcion_portadora)
+        else:
+            self.portadora = self.Vc * (signo_portadora * funcion_portadora)
+
+
 
         if 'cos' in self.fun_portadora:
             self.modulada = self.Vc * (signo_portadora * sp.cos((self.wc * self.t) + funcion_mod)) + self.noise
 
         elif 'sen' in self.fun_portadora or 'sin' in self.fun_portadora:
             self.modulada = self.Vc * (signo_portadora * sp.sin(self.wc * self.t + funcion_mod)) + self.noise
+
+        elif 'saw' in self.fun_portadora:
+            self.modulada = (-1) * (self.Vc_sierra) * (signo_portadora * sp.atan(sp.cot((self.wc/2) * self.t + funcion_mod))) \
+                            + self.noise
+
+        elif 'tri' in self.fun_portadora:
+            self.modulada = (self.Vc_sierra) * (signo_portadora * sp.asin(sp.sin(self.wc * self.t + funcion_mod))) \
+                            + self.noise
+
+
 
         return self.modulada
 
@@ -73,3 +106,4 @@ class ModulacionPM:
 
     def get_modulada_str(self):
         return str(self.modulada)
+

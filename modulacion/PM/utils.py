@@ -1,10 +1,17 @@
 import sympy as sp #simbolic
 import numpy as np #numeric
 
-def get_string_moduladora(fm_real, hzfm, Vm, fun_moduladora):
-    wm = 2 * np.pi * fm_real
-    hz = switch_hz_string(hzfm)
-    return str(Vm) + fun_moduladora + '(' + str(wm) + hz + 't)'
+def saw(amp, f, t):
+    return -(2*amp/np.pi) * sp.atan(sp.cot(np.pi*f*t))
+
+def triangle(amp, f, t):
+    return (2*amp/np.pi) * sp.asin(sp.sin(2*np.pi*f*t))
+
+def saw_no_amp(f, t):
+    return sp.atan(sp.cot(np.pi*f*t))
+
+def triangle_no_amp(f, t):
+    return sp.asin(sp.sin(2*np.pi*f*t))
 
 def signo_en_funcion(string):
     sign = 1
@@ -15,26 +22,20 @@ def signo_en_funcion(string):
 def funcion_en_string(string, wm, t):
     if 'sen' in string or 'sin' in string:
         return sp.sin(wm * t)
+
     elif 'cos' in string:
         return sp.cos(wm * t)
 
+    elif 'tri' in string:
+        return triangle_no_amp((wm/2*np.pi), t)
+
+    elif 'saw' in string:
+        return saw_no_amp((wm/2*np.pi), t)
+
+
+
 def integra_vmt(moduladora):
-    funcion = moduladora
-    return sp.integrate(funcion, sp.Symbol('x'))
-
-def get_string_portadora(fc_real, hzfc, Vc, fun_portadora):
-    wc = 2 * np.pi * fc_real
-    hz = switch_hz_string(hzfc)
-    return str(Vc) + fun_portadora + '(' + str(wc) + hz + 't)'
-
-def get_string_modulada(fm_real, hzfm, fun_moduladora, fc_real, hzfc, Vc, fun_portadora, m):
-    wc = 2 * np.pi * fc_real
-    wm = 2 * np.pi * fm_real
-    hzc = switch_hz_string(hzfc)
-    hzm = switch_hz_string(hzfm)
-
-    return str(Vc) + fun_portadora + '('+ str(wc) + hzc + 't + ' \
-           + str(m) + fun_moduladora + '(' + str(wm) + hzm + 't))' #Falta modificar el signo +, validar signos
+    return sp.integrate(moduladora, sp.Symbol('x'))
 
 def conv_unidades_frecuencia(numero, unidad):
     if unidad == "Hz":

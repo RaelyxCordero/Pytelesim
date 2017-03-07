@@ -1,8 +1,7 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
-from . import utils
-
-from . import ModulacionPM
+import utils
+import ModulacionPM
 
 #execfile('DemodulacionPM.py')
 #obj = DemodulacionPM(Vc=5, fc=10, hzfc='KHz', fun_portadora='cos', fun_moduladora= 'cos', hzfm= 'KHz', m=50.13, fm=15, Vm=10)
@@ -22,12 +21,20 @@ class DemodulacionPM:
         self.fm_real = fm
         self.m = m
         self.Vc = Vc
+        self.Vc_sierra = (2 * self.Vc) / np.pi
         self.Vm = Vm
+        self.Vm_sierra = (2 * self.Vm) / np.pi
         self.fc_real = fc  # fc por parametro
         self.t = sp.Symbol('x')
 
         if k is not None and Vm is not None:
-            self.m = self.Vm * self.k
+            if 'saw' in self.fun_moduladora:
+                self.m = (self.k * self.Vm_sierra)
+
+            elif 'tri' in self.fun_moduladora:
+                self.m = (self.k * self.Vm_sierra)
+            else:
+                self.m = self.k * self.Vm
 
         elif m is not None and Vm is not None:
             self.k = self.m / self.Vm
@@ -47,12 +54,24 @@ class DemodulacionPM:
         funcion = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
         signo = utils.signo_en_funcion(self.fun_moduladora)
 
-        self.moduladora = self.Vm * (signo * funcion)
+        if 'saw' in self.fun_moduladora:
+            self.moduladora = (-1) * self.Vm_sierra * (signo * funcion)
+
+        elif 'tri' in self.fun_moduladora:
+            self.moduladora = self.Vm_sierra * (signo * funcion)
+        else:
+            self.moduladora = self.Vm * (signo * funcion)
 
         sign = utils.signo_en_funcion(self.fun_portadora)
         funcion = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
-        self.portadora = self.Vc * (sign * funcion)
+        if 'saw' in self.fun_portadora:
+            self.portadora = (-1) * self.Vm_sierra * (sign * funcion)
+
+        elif 'tri' in self.fun_portadora:
+            self.portadora = self.Vm_sierra * (sign * funcion)
+        else:
+            self.portadora = self.Vc * (sign * funcion)
 
         self.modulada = ModulacionPM.ModulacionPM(self.fun_moduladora, self.fun_portadora,
                                      self.hzfm, self.hzfc, self.k, self.fc, self.fm, self.Vc, self.Vm).modulada
