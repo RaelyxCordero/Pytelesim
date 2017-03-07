@@ -87,6 +87,74 @@ function drawModulada(fun, T, A) {
     }
 }
 var espectro;
+/*      FM                                          PM
+a. Desviación de frecuencia.(Kl,vm)
+                                                b. Desviación de fase.(K,vm)
+                                                c. Desviación instantánea de fase.(k, Vm, fm, t, fun_moduladora)
+d. Desviación Instantánea de frecuencia.
+(kl, Vm, fm, t, fun_moduladora)
+
+e. Frecuencia instantánea.
+fc, kl, Vm, fm, t, fun_moduladora               f. Fase instantánea.fc, k, Vm, fm, t, fun_moduladora
+
+g. Sensibilidad de desviación Kl                g. Sensibilidad de desviación K (variacion_fase, variacion_voltaje)
+(variacion_frecuencia, variacion_voltaje)
+
+h. Determinar el ancho de banda.                h. Determinar el ancho de banda.
+por bessel (n, fm)                                  por bessel (n, fm)
+por regla carson (variacion_frecuencia, fm)         por regla carson (variacion_frecuencia, fm)
+m_mayor10(variacion_frecuencia)                     m_mayor10(variacion_frecuencia)
+m_menor10(fm)                                       m_menor10(fm)
+*/
+
+//k, vm, fm, t, fun_moduladora, fc, variacion_fase, variacion_voltaje, n, variacion_frecuencia PARA PM
+//kl, vm, fm, t, fun_moduladora, fc, variacion_fase, variacion_voltaje, n, variacion_frecuencia PARA FM
+
+function calculo_datos() {
+    vm = $("#vm").val();
+    vmt = $("#vmt").val();
+    fm = $("#fm").val();
+    vc = $("#vc").val();
+    vct = $("#vct").val();
+    fc = $("#fc").val();
+    kl = $("#kl").val();
+    m = $("#m").val();
+    var post_data = {
+        'vm': vm,
+        'vmt': vmt,
+        'fm': fm,
+        'vc': vc,
+        'vct': vct,
+        'fc': fc,
+        'kl': kl,
+        'm': m
+    };
+    if (modx == 'FM') {
+        $.ajax({
+            url: "http://localhost:8000/calcparams-fm/",
+            type: 'POST',
+            data: post_data,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                console.log(data)
+            }
+        });
+    }
+    if (modx == 'PM') {
+        $.ajax({
+            url: "http://localhost:8000/calcparams-pm/",
+            type: 'POST',
+            data: post_data,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                console.log(data)
+            }
+        });
+    }
+}
+
 
 function modulate() {
     vm = $("#vm").val();
@@ -220,19 +288,22 @@ function demodulate() {
 
 function drawSpectrum() {
     seriesx = [];
-    for (var i = 0; i < espectro.amplitudes.length; i++) {
-        data = {};
-        if (i = 0) {
-            data.data = [
+    for (i = 0; i < espectro.amplitudes.length; i++) {
+        console.log("ciclo: "+i)
+        data = [];
+        if (i == 0) {
+            data = [
                 [espectro.frecuencias.f0, 0],
                 [espectro.frecuencias.f0, espectro.amplitudes[i]]
             ];
         } else {
             data.data = [
+//                espectro.frecuencias["f" + i][1]
                 [espectro.frecuencias["f" + i], 0],
                 [espectro.frecuencias["f" + i], espectro.amplitudes[i]]
             ];
-        }
+            //falta otro data apend igual al anterior
+       }
         seriesx.push(data);
     }
     console.log(seriesx);
@@ -277,3 +348,5 @@ function drawSpectrum() {
         series: seriesx
     });
 }
+
+[{data:[ [],[] ] },{}]

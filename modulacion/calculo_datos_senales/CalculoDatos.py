@@ -13,7 +13,7 @@ g. Sensibilidad de desviación
 h. Determinar el ancho de banda.
 '''
 
-
+# k, Vm, fm, t, fun_moduladora, fc, variacion_fase, variacion_voltaje, n, variacion_frecuencia
 # Desviacion de Frecuencia / Desviacion de Fase
 def desviacion_frecuencia_fase(const_desv, Vm):
     return const_desv * Vm
