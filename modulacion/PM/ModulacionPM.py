@@ -1,6 +1,6 @@
 import sympy as sp  # simbolic
 import numpy as np  # numeric
-import utils
+from . import utils
 
 # AGREGAR RUIDO
 # Validar Hz y no hz

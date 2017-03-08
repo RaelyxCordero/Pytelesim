@@ -252,7 +252,7 @@ function modulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fc * fm), vc);
+                drawModulada(1 / (fm), vc);
                 console.log('espectro.amplitudes.length: ' + espectro.amplitudes.length);
                 drawSpectrum();
             }
@@ -279,7 +279,7 @@ function modulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fc * fm), vc);
+                drawModulada(1 / (fm*fc), vc);
                 drawSpectrum();
             }
         });
@@ -322,7 +322,7 @@ function demodulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fc * fm), vc);
+                drawModulada(1 / (fm*fc), vc);
                 drawSpectrum();
             }
         });
@@ -345,7 +345,7 @@ function demodulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fc * fm), vc);
+                drawModulada(1 / (fm*fc), vc);
                 drawSpectrum();
             }
         });
