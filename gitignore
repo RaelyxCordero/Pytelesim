@@ -1,4 +1,4 @@
-local.py
+Pytelesim/settings/local.py
 venv
 *.pyc
 staticsfiles
