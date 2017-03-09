@@ -2,7 +2,7 @@ import sympy as sp #simbolic
 import numpy as np #numeric
 
 def saw(amp, f, t):
-    return -(2*amp/np.pi) * sp.atan(sp.cot(np.pi*f*t))
+    return (2*amp/np.pi) * sp.atan(sp.cot(np.pi*f*t))
 
 def triangle(amp, f, t):
     return (2*amp/np.pi) * sp.asin(sp.sin(2*np.pi*f*t))

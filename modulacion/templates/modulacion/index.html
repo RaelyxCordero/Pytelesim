@@ -59,7 +59,8 @@
                         <input type="checkbox" id="ruido" name="ruido">
                     </div>
                     <div class="col-md-12">
-                        <label for="kl">$K{\small l}$:</label>
+                        <label id="kl-label">$K{\small l}$:</label>
+                        <label id="k-label">$K$:</label>
                         <input class="form-control" type="text" name="kl" id="kl" value="1" />
                     </div>
                     <div class="col-md-12">
@@ -74,7 +75,14 @@
             <div class="col-md-12" align="center">
                 <div class="form-group">
                     <p class="label-signal">Modulada:</p>
-                    $m(t) = V{\small c}*{\cos}(W{\small c}*t + K{\small l}*{\int}Vm(t))$
+                    <div id="eq-modulada-fm">
+                        $m(t) = V{\small c}*{\cos}(W{\small c}*t + K{\small l}*{\int}Vm(t))$
+                    </div>
+                    <div id="eq-modulada-pm">
+                        $m(t) = V{\small c}*{\cos}(W{\small c}*t + K*Vm(t))$
+                    </div>
+
+
                     <br>
                     <div class="eq">
                         <span class="label-signal">$m(t) = $</span>
@@ -107,16 +115,16 @@
             </div>
         </div>
         <div id="menu1" class="tab-pane fade">
-            <div id="plot-moduladora"></div>
+            <div id="plot-moduladora">Debes clicar los botones Modular o Demodular para ver la grafica</div>
         </div>
         <div id="menu2" class="tab-pane fade">
-            <div id="plot-portadora"></div>
+            <div id="plot-portadora">Debes clicar los botones Modular o Demodular para ver la grafica</div>
         </div>
         <div id="menu3" class="tab-pane fade">
-            <div id="plot-modulada"></div>
+            <div id="plot-modulada">Debes clicar los botones Modular o Demodular para ver la grafica</div>
         </div>
         <div id="menu4" class="tab-pane fade">
-            <div id="spectrum" width="800" height="400"></div>
+            <div id="spectrum" width="800" height="400">Debes clicar los botones Modular o Demodular para ver la grafica</div>
         </div>
     </div>
 </div>
@@ -129,12 +137,12 @@
             </div>
             <div class="modal-body">
                 <div id="modal-fm" class="hidden">
-                    <label for="tiempof">Tiempo:</label>
-                    <input type="text" class="form-control input-modal-1" name="tiempof" id="tiempof" placeholder="Tiempo">
-                    <label for="deltaw">Diferencial angular:</label>
-                    <input type="text" class="form-control input-modal-1" name="deltaw" id="deltaw" placeholder="Diferencial angular">
-                    <label for="deltavf">Diferencial de voltaje:</label>
-                    <input type="text" class="form-control input-modal-1" name="deltavf" id="deltavf" placeholder="Diferencial de voltaje">
+                    <label for="tiempof">${\small t}:$</label>
+                    <input type="text" class="form-control input-modal-1" value="1" name="tiempof" id="tiempof" placeholder="Tiempo"> <br> <br>
+                    <label for="deltaw">${\Delta \small w }:$</label>
+                    <input type="text" name="deltaw" id="deltaw" readonly><br> <br>
+                    <label for="deltavf">${\Delta \small V }:$</label>
+                    <input type="text" name="deltavf" id="deltavf" readonly><br> <br>
                     <p class="label-signal">Desviación de frecuencia: </p>
                     <h3>${\Delta}f = K{\small l}V{\small m} = $ 
                     <input type="text" name="deltaf" id="deltaf" readonly></h3>
@@ -155,16 +163,16 @@
                     <input type="text" name="Bcarsonfr" id="Bcarsonfr" readonly></h3>
                 </div>
                 <div id="modal-pm" class="hidden">
-                    <label for="tiempo">Tiempo:</label>
-                    <input type="text" class="form-control input-modal-1" name="tiempo" id="tiempo" placeholder="Tiempo">
-                    <label for="deltav">Diferencial de voltaje:</label>
-                    <input type="text" class="form-control input-modal-1" name="deltav" id="deltav" placeholder="Diferencial de voltaje">
-                    <label for="deltav">Diferencial de frecuencia:</label>
-                    <input type="text" class="form-control input-modal-1" name="deltaaf" id="deltaaf" placeholder="Diferencial de frecuencia">
+                    <label for="tiempo">${\small t}:$</label>
+                    <input type="text" class="form-control input-modal-1" value="1" name="tiempo" id="tiempo" placeholder="Tiempo"> <br> <br>
+                    <label for="deltav">${\Delta \small V }:$</label>
+                    <input type="text" name="deltav" id="deltav" readonly> <br> <br>
+                    <label for="deltaaf">${\Delta \small f }:$</label>
+                    <input type="text" name="deltaaf" id="deltaaf" readonly> <br> <br>
                     <h3>${\Delta}{\theta} = KV{\small m} = 
                     $<input type="text" name="deltatita" id="deltatita" readonly></h3>
                     <p class="label-signal">Desviación instantánea de fase: </p>
-                    <h3>${\theta}(t) = KV{\small m}'(t) = 
+                    <h3>${\theta}(t) = KV{\small m}(t) =
                     $<input type="text" name="titadet" id="titadet" readonly></h3>
                     <p class="label-signal">Fase instantánea:</p>
                     <h3>${\theta}{\small i}(t) = W{\small c}t + {\theta}(t) = 

@@ -58,7 +58,7 @@ class ModulacionPM:
         funcion_moduladora = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
 
         if 'saw' in self.fun_moduladora:
-            self.moduladora = (-1) * self.Vm_sierra * (signo_moduladora * funcion_moduladora)
+            self.moduladora = self.Vm_sierra * (signo_moduladora * funcion_moduladora)
 
         elif 'tri' in self.fun_moduladora:
             self.moduladora = self.Vm_sierra * (signo_moduladora * funcion_moduladora)
@@ -71,7 +71,7 @@ class ModulacionPM:
         funcion_portadora = utils.funcion_en_string(self.fun_portadora, self.wc, self.t)
 
         if 'saw' in self.fun_portadora:
-            self.portadora = (-1) * self.Vm_sierra * (signo_portadora * funcion_portadora)
+            self.portadora = self.Vm_sierra * (signo_portadora * funcion_portadora)
 
         elif 'tri' in self.fun_portadora:
             self.portadora = self.Vm_sierra * (signo_portadora * funcion_portadora)
@@ -87,7 +87,7 @@ class ModulacionPM:
             self.modulada = self.Vc * (signo_portadora * sp.sin(self.wc * self.t + funcion_mod)) + self.noise
 
         elif 'saw' in self.fun_portadora:
-            self.modulada = (-1) * (self.Vc_sierra) * (signo_portadora * sp.atan(sp.cot((self.wc/2) * self.t + funcion_mod))) \
+            self.modulada = (self.Vc_sierra) * (signo_portadora * sp.atan(sp.cot((self.wc/2) * self.t + funcion_mod))) \
                             + self.noise
 
         elif 'tri' in self.fun_portadora:

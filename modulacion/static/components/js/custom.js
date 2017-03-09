@@ -9,11 +9,19 @@ $(document).ready(function() {
 });
 
 function modalidad(mod) {
+    $("#eq-modulada-fm").addClass('hidden');
+    $("#eq-modulada-pm").addClass('hidden');
+    $("#kl-label").addClass('hidden');
+    $("#k-label").addClass('hidden');
     if (mod == 'FM') {
         $('#modalidad').html('FM');
+        $('#eq-modulada-fm').toggleClass('hidden');
+        $('#kl-label').toggleClass('hidden');
         modx = 'FM';
     } else {
         $('#modalidad').html('PM');
+        $('#eq-modulada-pm').toggleClass('hidden');
+        $('#k-label').toggleClass('hidden');
         modx = 'PM';
     }
 }
@@ -119,12 +127,9 @@ function calculo_datos() {
     fc = $("#fc").val();
     kl = $("#kl").val();
     m = $("#m").val();
-    ruido = $("#ruido").is(":checked");
 
     if (modx == 'FM') {
         t = $("#tiempof").val();
-        dw = $("#deltaw").val();
-        dv = $("#deltavf").val();
         var post_data = {
             'vm': vm,
             'vmt': vmt,
@@ -134,10 +139,7 @@ function calculo_datos() {
             'fc': fc,
             'kl': kl,
             'm': m,
-            't': t,
-            'dw': dw,
-            'dv': dv,
-            'ruido': ruido
+            't': t
         };
         $.ajax({
             url: "calcparams-fm/",
@@ -147,6 +149,9 @@ function calculo_datos() {
             cache: false,
             success: function(data) {
                 console.log(data);
+
+                $("#deltavf").val(data.desv_voltaje);
+                $("#deltaw").val(data.desv_angular);
                 $("#deltaf").val(data.desv_frecuencia);
                 $("#titapdet").val(data.desv_inst_frecuencia);
                 $("#f_instantanea").val(data.frecuencia_inst);
@@ -158,8 +163,6 @@ function calculo_datos() {
     }
     if (modx == 'PM') {
         t = $("#tiempo").val();
-        dv = $("#deltav").val();
-        df = $("#deltaaf").val();
         var post_data = {
             'vm': vm,
             'vmt': vmt,
@@ -169,10 +172,7 @@ function calculo_datos() {
             'fc': fc,
             'kl': kl,
             'm': m,
-            't': t,
-            'dv': dv,
-            'df': df,
-            'ruido': ruido
+            't': t
         };
         $.ajax({
             url: "calcparams-pm/",
@@ -182,6 +182,8 @@ function calculo_datos() {
             cache: false,
             success: function(data) {
                 console.log(data);
+                $("#deltav").val(data.desv_voltaje);
+                $("#deltaaf").val(data.desv_frecuencia);
                 $("#deltatita").val(data.desv_fase);
                 $("#titadet").val(data.desv_inst_fase);
                 $("#tita_instantanea").val(data.fase_inst);
@@ -203,6 +205,7 @@ function show_modal() {
     if (modx == 'PM') {
         $('#modal-pm').toggleClass('hidden');
     }
+    calculo_datos();
 }
 
 function close_modal() {
@@ -210,6 +213,11 @@ function close_modal() {
 }
 
 function modulate() {
+    $("#plot-moduladora").html("");
+    $("#plot-portadora").html("");
+    $("#plot-modulada").html("");
+    $("#spectrum").html("");
+
     vm = $("#vm").val();
     vmt = $("#vmt").val();
     fm = $("#fm").val();
@@ -288,6 +296,11 @@ function modulate() {
 var demod_fm, demod_fc;
 
 function demodulate() {
+    $("#plot-moduladora").html("");
+    $("#plot-portadora").html("");
+    $("#plot-modulada").html("");
+    $("#spectrum").html("");
+
     vc = $('#vc_modulada').val();
     vct = $('#vct_modulada').val();
     fc = $('#fc_modulada').val();

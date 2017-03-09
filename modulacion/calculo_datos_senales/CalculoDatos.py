@@ -18,6 +18,14 @@ h. Determinar el ancho de banda.
 def desviacion_frecuencia_fase(const_desv, Vm):
     return const_desv * Vm
 
+def variacion_angular(const_desv, Vm):
+    return desviacion_frecuencia_fase(const_desv, Vm)*2 * np.pi
+
+def variacion_voltaje_frecuencia(const_desv, Vm):
+    return (variacion_angular(const_desv, Vm))/ const_desv
+
+def variacion_voltaje_fase(const_desv, Vm):
+    return desviacion_frecuencia_fase(const_desv, Vm)/ const_desv
 
 # Desviacion instantanea de fase / frecuencia
 def desviacion_instantanea_frecuencia_fase(const_desv, Vm, fm, t, fun_moduladora):
@@ -34,7 +42,8 @@ def desviacion_instantanea_frecuencia_fase(const_desv, Vm, fm, t, fun_moduladora
 
 # Frecuencia Instantanea
 def frecuencia_instantanea(fc, kl, Vm, fm, t, fun_moduladora):
-    return fc + (desviacion_instantanea_frecuencia_fase(kl, Vm, fm, t, fun_moduladora) / 2 * np.pi)
+    num = desviacion_instantanea_frecuencia_fase(kl, Vm, fm, t, fun_moduladora)
+    return fc + ( num / (2 * np.pi))
 
 
 # Fase Instantánea
