@@ -140,7 +140,7 @@ function calculo_datos() {
             'ruido': ruido
         };
         $.ajax({
-            url: "http://localhost:8000/calcparams-fm/",
+            url: "calcparams-fm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',
@@ -175,7 +175,7 @@ function calculo_datos() {
             'ruido': ruido
         };
         $.ajax({
-            url: "http://localhost:8000/calcparams-pm/",
+            url: "calcparams-pm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',
@@ -233,7 +233,7 @@ function modulate() {
     };
     if (modx == 'FM') {
         $.ajax({
-            url: "http://localhost:8000/modulate-fm/",
+            url: "modulate-fm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',
@@ -260,7 +260,7 @@ function modulate() {
     }
     if (modx == 'PM') {
         $.ajax({
-            url: "http://localhost:8000/modulate-pm/",
+            url: "modulate-pm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',
@@ -306,7 +306,7 @@ function demodulate() {
     };
     if (modx == 'FM') {
         $.ajax({
-            url: "http://localhost:8000/demodulate-fm/",
+            url: "demodulate-fm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',
@@ -329,7 +329,7 @@ function demodulate() {
     }
     if (modx == 'PM') {
         $.ajax({
-            url: "http://localhost:8000/demodulate-pm/",
+            url: "demodulate-pm/",
             type: 'POST',
             data: post_data,
             dataType: 'json',

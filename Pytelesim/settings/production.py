@@ -27,6 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['www.Pytelesim.com', 'Pytelesim.com']
 
+BASE_URL = lambda url: "localhost:8000/" if DEBUG is True else "https://pytelesim.herokuapp.com/"
 
 # Application definition
 
