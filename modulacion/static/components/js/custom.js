@@ -219,7 +219,7 @@ function modulate() {
     kl = $("#kl").val();
     m = $("#m").val();
     ruido = $("#ruido").is(":checked");
-    console.log('ruido: '+ruido);
+    console.log('ruido: ' + ruido);
     var post_data = {
         'vm': vm,
         'vmt': vmt,
@@ -279,7 +279,7 @@ function modulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm*fc), vc);
+                drawModulada(1 / (fm * fc), vc);
                 drawSpectrum();
             }
         });
@@ -322,7 +322,7 @@ function demodulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm*fc), vc);
+                drawModulada(1 / (fm * fc), vc);
                 drawSpectrum();
             }
         });
@@ -345,7 +345,7 @@ function demodulate() {
                 console.log(data);
                 drawModuladora(1 / fm, vm);
                 drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm*fc), vc);
+                drawModulada(1 / (fm * fc), vc);
                 drawSpectrum();
             }
         });
@@ -414,7 +414,11 @@ function drawSpectrum() {
         },
         plotOptions: {
             series: {
-                lineWidth: 2,
+                lineWidth: 3,
+                color: '#13753C',
+                marker: {
+                    enabled: false
+                }
             }
         },
         series: seriesx
@@ -423,5 +427,5 @@ function drawSpectrum() {
     var yAxis = chart.get('my_y');
     var extremes = yAxis.getExtremes();
     var min = extremes.min;
-    yAxis.setExtremes(min,$('#vc').val());
+    yAxis.setExtremes(min, $('#vc').val());
 }

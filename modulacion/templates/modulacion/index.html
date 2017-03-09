@@ -19,14 +19,14 @@
                             <br>
                             <div class="eq">
                                 <span class="label-signal">$Vm(t) = $</span>
-                                <input class="form-control" type="number" id="vm" name="vm" placeholder="Vm" value="40" />
+                                <input class="form-control" type="text" id="vm" name="vm" placeholder="Vm" value="40" />
                             </div>
                             <div class="eq">
                                 <input class="form-control" type="text" id="vmt" name="vmt" placeholder="cos" value="cos" />
                                 <span class="label-signal">$(2*{\pi}$*</span>
                             </div>
                             <div class="eq">
-                                <input class="form-control" type="number" id="fm" name="fm" placeholder="Fm" value="10" />
+                                <input class="form-control" type="text" id="fm" name="fm" placeholder="Fm" value="10" />
                                 <span class="label-signal">$*t)$</span>
                             </div>
                         </div>
@@ -39,14 +39,14 @@
                             </div>
                             <div class="eq">
                                 <span class="label-signal">$Vc(t) = $</span>
-                                <input class="form-control" type="number" id="vc" name="vc" placeholder="Vc" value="4" />
+                                <input class="form-control" type="text" id="vc" name="vc" placeholder="Vc" value="4" />
                             </div>
                             <div class="eq">
                                 <input class="form-control" type="text" id="vct" name="vct" placeholder="cos" value="cos" />
                                 <span class="label-signal">$(2*{\pi}$*</span>
                             </div>
                             <div class="eq">
-                                <input class="form-control" type="number" id="fc" name="fc" placeholder="Fc" value="100" />
+                                <input class="form-control" type="text" id="fc" name="fc" placeholder="Fc" value="100" />
                                 <span class="label-signal">$*t)$</span>
                             </div>
                         </div>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="col-md-12">
                         <label for="kl">$K{\small l}$:</label>
-                        <input class="form-control" type="number" name="kl" id="kl" value="1" />
+                        <input class="form-control" type="text" name="kl" id="kl" value="1" />
                     </div>
                     <div class="col-md-12">
                         <label for="kl">$m$:</label>
-                        <input class="form-control" type="number" id="m" name="m" value="" />
+                        <input class="form-control" type="text" id="m" name="m" value="" />
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -78,18 +78,18 @@
                     <br>
                     <div class="eq">
                         <span class="label-signal">$m(t) = $</span>
-                        <input class="form-control" type="number" id="vc_modulada" name="vc_modulada" placeholder="Vc" value="4" />
+                        <input class="form-control" type="text" id="vc_modulada" name="vc_modulada" placeholder="Vc" value="4" />
                     </div>
                     <div class="eq">
                         <input class="form-control" type="text" id="vct_modulada" name="vct_modulada" placeholder="cos" value="cos" />
                         <span class="label-signal">$(2*{\pi}$*</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="number" id="fc_modulada" name="fc_modulada" placeholder="Fc" value="100" />
+                        <input class="form-control" type="text" id="fc_modulada" name="fc_modulada" placeholder="Fc" value="100" />
                         <span class="label-signal">$*t + $</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="number" id="kl_modulada" name="kl_modulada" placeholder="Kl" value="1" />
+                        <input class="form-control" type="text" id="kl_modulada" name="kl_modulada" placeholder="Kl" value="1" />
                         <span class="label-signal">$*$</span>
                     </div>
                     <div class="eq">
@@ -97,7 +97,7 @@
                         <span class="label-signal">$(2*{\pi}$*</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="number" id="fm_modulada" name="fm_modulada" placeholder="Fm" value="100" />
+                        <input class="form-control" type="text" id="fm_modulada" name="fm_modulada" placeholder="Fm" value="100" />
                         <span class="label-signal">$*t)$</span>
                     </div>
                     <input type="hidden" name="eq-modulada" id="eq-modulada" value="4*cos(2*pi*2*x - 4*sin(2*pi*1.5*x))">
@@ -130,11 +130,11 @@
             <div class="modal-body">
                 <div id="modal-fm" class="hidden">
                     <label for="tiempof">Tiempo:</label>
-                    <input type="number" class="form-control input-modal-1" name="tiempof" id="tiempof" placeholder="Tiempo">
+                    <input type="text" class="form-control input-modal-1" name="tiempof" id="tiempof" placeholder="Tiempo">
                     <label for="deltaw">Diferencial angular:</label>
-                    <input type="number" class="form-control input-modal-1" name="deltaw" id="deltaw" placeholder="Diferencial angular">
+                    <input type="text" class="form-control input-modal-1" name="deltaw" id="deltaw" placeholder="Diferencial angular">
                     <label for="deltavf">Diferencial de voltaje:</label>
-                    <input type="number" class="form-control input-modal-1" name="deltavf" id="deltavf" placeholder="Diferencial de voltaje">
+                    <input type="text" class="form-control input-modal-1" name="deltavf" id="deltavf" placeholder="Diferencial de voltaje">
                     <p class="label-signal">Desviación de frecuencia: </p>
                     <h3>${\Delta}f = K{\small l}V{\small m} = $ 
                     <input type="text" name="deltaf" id="deltaf" readonly></h3>
@@ -156,11 +156,11 @@
                 </div>
                 <div id="modal-pm" class="hidden">
                     <label for="tiempo">Tiempo:</label>
-                    <input type="number" class="form-control input-modal-1" name="tiempo" id="tiempo" placeholder="Tiempo">
+                    <input type="text" class="form-control input-modal-1" name="tiempo" id="tiempo" placeholder="Tiempo">
                     <label for="deltav">Diferencial de voltaje:</label>
-                    <input type="number" class="form-control input-modal-1" name="deltav" id="deltav" placeholder="Diferencial de voltaje">
+                    <input type="text" class="form-control input-modal-1" name="deltav" id="deltav" placeholder="Diferencial de voltaje">
                     <label for="deltav">Diferencial de frecuencia:</label>
-                    <input type="number" class="form-control input-modal-1" name="deltaaf" id="deltaaf" placeholder="Diferencial de frecuencia">
+                    <input type="text" class="form-control input-modal-1" name="deltaaf" id="deltaaf" placeholder="Diferencial de frecuencia">
                     <h3>${\Delta}{\theta} = KV{\small m} = 
                     $<input type="text" name="deltatita" id="deltatita" readonly></h3>
                     <p class="label-signal">Desviación instantánea de fase: </p>
