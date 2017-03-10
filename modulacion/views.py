@@ -42,7 +42,7 @@ class ModFMView(View):
         else:
             vmt = req['vmt']
             vm = req['vm']
-        
+
         vct = ''
         vc = ''
         if not if_signo_en_funcion(req['vc']):
@@ -77,43 +77,11 @@ class ModFMView(View):
 
         if 'cos' in funcion:
             datos['vmt'] = 'cos'
-        elif 'sin' in funcion:
+        elif 'sin' in funcion or 'sen' in funcion:
             datos['vmt'] = 'sin'
         
         return HttpResponse(JsonResponse(datos, safe=False))
 
-class DemodFMView(View):
-    def post(self, request):
-        req = request.POST
-        FM = DemodulacionFM(Vc=float(req['vc']), fc=float(req['fc']), hzfc='Hz', fun_portadora=req['vct'],
-                            fun_moduladora=req['vmt'], hzfm='Hz', fm=float(req['fm']), kl=float(req['kl']), m=float(req['m']))
-
-        datos = {}
-        espectro = {}
-        e = EspectroFrecuencia.EspectroFrecuencia(float(req['m']), float(req['vc']), float(req['fc']), float(req['fm']))
-        espectro['amplitudes'] = e.get_amplitudes_espectros()
-        espectro['frecuencias'] = e.get_frecuencias_espectros()
-        datos['espectro'] = espectro
-        datos['portadora'] = FM.get_portadora_str()
-        datos['moduladora'] = FM.get_moduladora_str()
-        datos['modulada'] = FM.get_modulada_str()
-        datos['fm'] = FM.fm
-        datos['fc'] = FM.fc
-        datos['vm'] = FM.Vm
-        datos['vct'] = FM.fun_portadora
-        datos['vc'] = FM.Vc #revisar si es saw para devolver vc o vc_sierra
-
-        funcion = deriva_string_moduladora(FM.fun_moduladora)
-
-        datos['signo'] = if_signo_en_funcion(funcion)
-
-        if 'cos' in funcion:
-            datos['vmt'] = 'cos'
-        elif 'sin' in funcion:
-            datos['vmt'] = 'sin'
-
-
-        return HttpResponse(JsonResponse(datos, safe=False))
 
 class ModPMView(View):
     def post(self, request):
@@ -137,13 +105,18 @@ class ModPMView(View):
             vct = req['vct']
             vc = req['vc']
 
+        PM = ModulacionPM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']),
+                          float(vc), float(vm), noise=req['ruido'])
 
+        if if_saw(PM.fun_portadora):
+            vc = PM.Vc_sierra
+        else:
+            vc = PM.Vc
 
-        PM = ModulacionPM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(vc), float(vm), noise=req['ruido'])
         datos = {}
         espectro = {}
-        e = EspectroFrecuencia.EspectroFrecuencia(PM.m, float(req['vc']), float(req['fc']), float(req['fm']))
-        
+        e = EspectroFrecuencia.EspectroFrecuencia(PM.m, vc, float(req['fc']), float(req['fm']))
+
         espectro['amplitudes'] = e.get_amplitudes_espectros()
         espectro['frecuencias'] = e.get_frecuencias_espectros()
         datos['espectro'] = espectro
@@ -152,15 +125,58 @@ class ModPMView(View):
         datos['modulada'] = PM.get_modulada_str()
         datos['k_modulada'] = PM.k
         datos['m_modulada'] = PM.m
+        datos['vc'] = vc
 
-        datos['signo'] = if_signo_en_funcion(vmt)
+        funcion = PM.fun_moduladora
+        datos['signo'] = if_signo_en_funcion(funcion)
 
         return HttpResponse(JsonResponse(datos, safe=False))
+
+
+class DemodFMView(View):
+    def post(self, request):
+        req = request.POST
+        FM = DemodulacionFM(Vc=float(req['vc']), fc=float(req['fc']), hzfc='Hz', fun_portadora=req['vct'],
+                            fun_moduladora=req['vmt'], hzfm='Hz', fm=float(req['fm']), kl=float(req['kl']), m=float(req['m']))
+
+        if if_saw(FM.fun_portadora):
+            vc = FM.Vc_sierra
+        else:
+            vc = FM.Vc
+
+        datos = {}
+        espectro = {}
+        e = EspectroFrecuencia.EspectroFrecuencia(float(req['m']), vc, float(req['fc']), float(req['fm']))
+        espectro['amplitudes'] = e.get_amplitudes_espectros()
+        espectro['frecuencias'] = e.get_frecuencias_espectros()
+        datos['espectro'] = espectro
+        datos['portadora'] = FM.get_portadora_str()
+        datos['moduladora'] = FM.get_moduladora_str()
+        datos['modulada'] = FM.get_modulada_str()
+        datos['fm'] = FM.fm
+        datos['fc'] = FM.fc
+        datos['vm'] = FM.Vm
+        datos['vct'] = FM.fun_portadora
+        datos['vc'] = vc
+
+        funcion = deriva_string_moduladora(FM.fun_moduladora)
+
+        datos['signo'] = if_signo_en_funcion(funcion)
+
+        if 'cos' in funcion:
+            datos['vmt'] = 'cos'
+        elif 'sin' in funcion or 'sen' in funcion:
+            datos['vmt'] = 'sin'
+
+
+        return HttpResponse(JsonResponse(datos, safe=False))
+
 
 class DemodPMView(View):
     def post(self, request):
         # Vc, fc, hzfc,  fun_portadora, fun_moduladora, hzfm, fm, k, m
         req = request.POST
+        print(req)
         PM = DemodulacionPM(float(req['vc']), float(req['fc']), 'Hz', req['vct'], req['vmt'], 'Hz', float(req['fm']), float(req['kl']), m=float(req['m']))
         datos = {}
         espectro = {}
@@ -171,11 +187,21 @@ class DemodPMView(View):
         datos['espectro'] = espectro
         datos['portadora'] = PM.get_portadora_str()
         datos['moduladora'] = PM.get_moduladora_str()
-        datos['modulada'] = str(PM.modulada)
+        datos['modulada'] = PM.get_modulada_str()
         datos['fm'] = PM.fm
         datos['fc'] = PM.fc
         datos['vm'] = PM.Vm
+
+        datos['signo'] = if_signo_en_funcion(PM.fun_moduladora)
+
+        if 'cos' in PM.fun_moduladora:
+            datos['vmt'] = 'cos'
+        elif 'sin' in PM.fun_moduladora or 'sen' in PM.fun_moduladora:
+            datos['vmt'] = 'sin'
+
         return HttpResponse(JsonResponse(datos, safe=False))
+
+# EN LOS CALCULOS RECIBIR TODO COMO VALOR ABSOLUTO
 
 #   /*      FM                                          PM
 # a. Desviación de frecuencia.(Kl,vm)
@@ -200,23 +226,47 @@ class DemodPMView(View):
 class CalculoParametrosPMView(View):
     def post(self, request):
         req = request.POST
-        variacion_voltaje = CalculoDatos.variacion_voltaje_fase(float(req['kl']), float(req['vm']))
-        variacion_frecuencia = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(req['vm']))
+        vm = ''
+        vmt = ''
+
+        if not if_signo_en_funcion(req['vm']):
+            vm = req['vm'].replace("-", "")
+            vmt = "-" + req['vmt']
+        else:
+            vm = req['vm']
+            vmt = req['vmt']
+
+
+
+        variacion_voltaje = CalculoDatos.variacion_voltaje_fase(float(req['kl']), float(vm))
+        variacion_frecuencia = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(vm))
 
         calculo_datos = {}
-        calculo_datos['desv_fase'] = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(req['vm']))
+        calculo_datos['desv_fase'] = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(vm))
         calculo_datos['desv_voltaje'] = variacion_voltaje
         calculo_datos['desv_frecuencia'] = variacion_frecuencia
         calculo_datos['desv_inst_fase'] = CalculoDatos.desviacion_instantanea_frecuencia_fase(float(req['kl']),
-                                float(req['vm']), float(req['fm']), float(req['t']), req['vmt'])
+                                float(vm), float(req['fm']), float(req['t']), req['vmt'])
         #
-        calculo_datos['fase_inst'] = CalculoDatos.fase_instantanea(float(req['fc']), float(req['kl']), float(req['vm']),
+        calculo_datos['fase_inst'] = CalculoDatos.fase_instantanea(float(req['fc']), float(req['kl']), float(vm),
                                     float(req['fm']), float(req['t']), req['vmt'])
         #
         calculo_datos['k'] = CalculoDatos.sensibilidad_k(calculo_datos['desv_fase'], variacion_voltaje)
-        
-        PM = ModulacionPM(req['vmt'], req['vct'], 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(req['vc']), float(req['vm']))
-        e = EspectroFrecuencia.EspectroFrecuencia(PM.m, float(req['vc']), float(req['fc']), float(req['fm']))
+
+
+        vc = ''
+        vct = ''
+
+        if not if_signo_en_funcion(req['vc']):
+            vc = req['vc'].replace("-", "")
+            vct = "-" + req['vct']
+        else:
+            vct = req['vct']
+            vc = req['vc']
+
+        PM = ModulacionPM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']),
+                          float(req['fm']), float(vc), float(vm))
+        e = EspectroFrecuencia.EspectroFrecuencia(PM.m, float(vc), float(req['fc']), float(req['fm']))
 
         calculo_datos['a_banda_bessel'] = CalculoDatos.ancho_banda_bessel(e.n, float(req['fm']))
         calculo_datos['a_banda_carson'] = CalculoDatos.ancho_banda_regla_carson(variacion_frecuencia,
@@ -227,15 +277,26 @@ class CalculoParametrosPMView(View):
 class CalculoParametrosFMView(View):
     def post(self, request):
         req = request.POST
-        variacion_voltaje = CalculoDatos.variacion_voltaje_frecuencia(float(req['kl']), float(req['vm']))
-        variacion_angular = CalculoDatos.variacion_angular(float(req['kl']), float(req['vm']))
+
+        vm = ''
+        vmt = ''
+
+        if not if_signo_en_funcion(req['vm']):
+            vm = req['vm'].replace("-", "")
+            vmt = "-" + req['vmt']
+        else:
+            vm = req['vm']
+            vmt = req['vmt']
+
+        variacion_voltaje = CalculoDatos.variacion_voltaje_frecuencia(float(req['kl']), float(vm))
+        variacion_angular = CalculoDatos.variacion_angular(float(req['kl']), float(vm))
 
         calculo_datos = {}
-        calculo_datos['desv_frecuencia'] = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(req['vm']))
+        calculo_datos['desv_frecuencia'] = CalculoDatos.desviacion_frecuencia_fase(float(req['kl']), float(vm))
         calculo_datos['desv_voltaje'] = variacion_voltaje
         calculo_datos['desv_angular'] = variacion_angular
         calculo_datos['desv_inst_frecuencia'] = CalculoDatos.desviacion_instantanea_frecuencia_fase(float(req['kl']),
-                                                                                              float(req['vm']),
+                                                                                              float(vm),
                                                                                               float(req['fm']),
                                                                                               float(req['t']),
                                                                                               req['vmt'])
@@ -246,8 +307,20 @@ class CalculoParametrosFMView(View):
                                                                    req['vmt'])
 
         calculo_datos['kl'] = CalculoDatos.sensibilidad_kl(variacion_angular, variacion_voltaje)
-        FM = ModulacionFM(req['vmt'], req['vct'], 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(req['vc']), float(req['vm']))
-        e = EspectroFrecuencia.EspectroFrecuencia(FM.m, float(req['vc']), float(req['fc']), float(req['fm']))
+
+        vc = ''
+        vct = ''
+
+        if not if_signo_en_funcion(req['vc']):
+            vc = req['vc'].replace("-", "")
+            vct = "-" + req['vct']
+        else:
+            vct = req['vct']
+            vc = req['vc']
+
+        FM = ModulacionFM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']),
+                          float(req['fm']), float(vc), float(vm))
+        e = EspectroFrecuencia.EspectroFrecuencia(FM.m, float(vc), float(req['fc']), float(req['fm']))
 
         calculo_datos['a_banda_bessel'] = CalculoDatos.ancho_banda_bessel(e.n, float(req['fm']))
         calculo_datos['a_banda_carson'] = CalculoDatos.ancho_banda_regla_carson(calculo_datos['desv_frecuencia'],

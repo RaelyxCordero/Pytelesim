@@ -25,6 +25,38 @@ def signo_en_funcion(string):
         sign = -1
     return sign
 
+def if_signo_en_funcion(string):
+    sign = True
+    if '-' in string:
+        sign = False
+    return sign
+
+def deriva_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  'cos'
+    elif string == '-sin' or string == '-sen':
+        return '-cos'
+    elif string == 'cos':
+        return '-sin'
+    elif string == '-cos':
+        return 'sin'
+
+def integra_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  '-cos'
+    elif string == '-sin' or string == '-sen':
+        return 'cos'
+    elif string == 'cos':
+        return 'sin'
+    elif string == '-cos':
+        return '-sin'
+
+def if_saw(funcion):
+    if 'saw' in funcion or 'tri' in funcion:
+        return True
+    else:
+        return False
+
 def funcion_en_string(string, wm, t):
     if 'sen' in string or 'sin' in string:
         return sp.sin(wm * t)
@@ -37,6 +69,8 @@ def funcion_en_string(string, wm, t):
 
     elif 'saw' in string:
         return saw_no_amp((wm/2*np.pi), t)
+
+
 
 def deriva_vmt(modulada):
     return sp.diff(modulada, sp.Symbol('x'))

@@ -310,9 +310,11 @@ function modulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
+
                 $('#vc_modulada').val(vc);
                 $('#vct_modulada').val(vct);
                 $('#fc_modulada').val(fc);
+
                 $('#kl_modulada').val(data.m_modulada);
                 $('#m').val(data.m_modulada);
                 $('#kl').val(data.k_modulada);
@@ -321,7 +323,13 @@ function modulate() {
 
                 if (!data.signo){
                     if ($("#minus").hasClass("hidden")){
-                        change_sign();
+                        $("#minus").toggleClass("hidden")
+                        $("#plus").addClass("hidden")
+                    }
+                }else{
+                    if ($("#plus").hasClass("hidden")){
+                        $("#plus").toggleClass("hidden")
+                        $("#minus").addClass("hidden")
                     }
                 }
                 espectro = data.espectro;
@@ -382,9 +390,11 @@ function demodulate() {
                 }
                 $('#vmt').val(data.vmt);
                 $('#fm').val(data.fm);
-                $('#vc').vc;
-                $('#vct').vct;
-                $('#fc').fc;
+                $('#vc').val(data.vc);
+                $('#m').val(m);
+                $('#vct').val(data.vct);
+                $('#fc').val(data.fc);
+
                 espectro = data.espectro;
                 console.log(data);
                 drawModuladora(1 / fm, vm);
@@ -405,6 +415,19 @@ function demodulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
+
+                if (data.signo){
+                    $('#vm').val(data.vm);
+                }else{
+                    $('#vm').val("-"+data.vm);
+                }
+                $('#vmt').val(data.vmt);
+                $('#fm').val(fm);
+                $('#vc').val(vc);
+                $('#m').val(m);
+                $('#vct').val(vct);
+                $('#fc').val(fc);
+
                 espectro = data.espectro;
                 demod_fm = data.fm;
                 demod_fc = data.fc;
