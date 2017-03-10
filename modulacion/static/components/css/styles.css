@@ -60,3 +60,7 @@ form {
     display: inline;
     width: 200px;
 }
+
+#kl, #m {
+    width: 100px;
+}
