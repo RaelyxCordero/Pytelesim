@@ -40,8 +40,8 @@ function drawModuladora(T, A) {
         var moduladora = functionPlot({
             width: width,
             height: height,
-            xDomain: [-3 * T, 3 * T],
-            yDomain: [-A, A],
+            xDomain: [-3 * Math.abs(T), 3 * Math.abs(T)],
+            yDomain: [-Math.abs(A), Math.abs(A)],
             xLabel: 'Frecuencia(Hz)',
             yLabel: 'Amplitud(V)',
             target: '#plot-moduladora',
@@ -63,8 +63,8 @@ function drawPortadora(T, A) {
         var portadora = functionPlot({
             width: width,
             height: height,
-            xDomain: [-3 * T, 3 * T],
-            yDomain: [-A, A],
+            xDomain: [-3 * Math.abs(T), 3 * Math.abs(T)],
+            yDomain: [-Math.abs(A), Math.abs(A)],
             xLabel: 'Frecuencia(Hz)',
             yLabel: 'Amplitud(V)',
             target: '#plot-portadora',
@@ -86,8 +86,8 @@ function drawModulada(T, A) {
         var modulada = functionPlot({
             width: width,
             height: height,
-            xDomain: [-3 * T, 3 * T],
-            yDomain: [-A, A],
+            xDomain: [-3 * Math.abs(T), 3 * Math.abs(T)],
+            yDomain: [-Math.abs(A), Math.abs(A)],
             xLabel: 'Frecuencia(Hz)',
             yLabel: 'Amplitud(V)',
             target: '#plot-modulada',
