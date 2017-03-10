@@ -1,9 +1,6 @@
 import sympy as sp  # simbolic
 import numpy as np  # numeric
-from . import utils
-
-# AGREGAR RUIDO
-# Validar Hz y no hz
+import utils
 
 #execfile('ModulacionPM.py')
 #obj = ModulacionPM(fun_moduladora='sin', fun_portadora='cos', hz_fm='KHz', hz_fc='KHz', k=50, fc=30, fm=1, vc=6, vm=2, noise=False)

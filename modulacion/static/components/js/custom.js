@@ -13,14 +13,6 @@ function modalidad(mod) {
     $("#eq-modulada-pm").addClass('hidden');
     $("#kl-label").addClass('hidden');
     $("#k-label").addClass('hidden');
-//    $('#vc_modulada').val("");    QUIERO REINICIAR LOS VALORES POR DEFECTO AL CAMBIAR DE FM A PM Y VICEVERSA
-//    $('#vct_modulada').val("");
-//    $('#fc_modulada').val("");
-//    $('#kl_modulada').val("");
-//    $('#vmt_modulada').val("");
-//    $('#fm_modulada').val("");
-//    $("#minus").addClass('hidden');
-//    $("#plus").toggleClass('hidden');
     $("#vm").val("");
     $("#vmt").val("");
     $("#fm").val("");
@@ -305,9 +297,9 @@ function modulate() {
                 }
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora(1 / fm, vm);
-                drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm), vc);
+                drawModuladora(1 / data.fm, vm);
+                drawPortadora(1 / data.fc, vc);
+                drawModulada(1 / (data.fm), vc);
                 console.log('espectro.amplitudes.length: ' + espectro.amplitudes.length);
                 drawSpectrum();
             }
@@ -348,9 +340,9 @@ function modulate() {
                 }
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora(1 / fm, vm);
-                drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm * fc), vc);
+                drawModuladora(1 / data.fm, vm);
+                drawPortadora(1 / data.fc, vc);
+                drawModulada(1 / (data.fm * data.fc), vc);
                 drawSpectrum();
             }
         });
@@ -411,9 +403,9 @@ function demodulate() {
 
                 espectro = data.espectro;
                 console.log(data);
-                drawModuladora(1 / fm, vm);
-                drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm * fc), vc);
+                drawModuladora(1 / data.fm_real, vm);
+                drawPortadora(1 / data.fc_real, vc);
+                drawModulada(1 / (fm * fc_real), vc);
                 drawSpectrum();
             }
         });
@@ -447,9 +439,9 @@ function demodulate() {
                 demod_fc = data.fc;
                 vm = data.vm;
                 console.log(data);
-                drawModuladora(1 / fm, vm);
-                drawPortadora(1 / fc, vc);
-                drawModulada(1 / (fm * fc), vc);
+                drawModuladora(1 / data.fm_real, vm);
+                drawPortadora(1 / data.fc_real, vc);
+                drawModulada(1 / (data.fm_real * data.fc_real), vc);
                 drawSpectrum();
             }
         });
