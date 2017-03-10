@@ -21,6 +21,20 @@ function modalidad(mod) {
 //    $('#fm_modulada').val("");
 //    $("#minus").addClass('hidden');
 //    $("#plus").toggleClass('hidden');
+    $("#vm").val("");
+    $("#vmt").val("");
+    $("#fm").val("");
+    $("#vc").val("");
+    $("#vct").val("");
+    $("#fc").val("");
+    $("#kl").val("");
+    $("#m").val("");
+    $("#vc_modulada").val("");
+    $("#vct_modulada").val("");
+    $("#fc_modulada").val("");
+    $("#kl_modulada").val("");
+    $("#vmt_modulada").val("");
+    $("#fm_modulada").val("");
 
     if (mod == 'FM') {
         $('#modalidad').html('FM');
