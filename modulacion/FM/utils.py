@@ -51,7 +51,11 @@ def integra_string_moduladora(string):
     elif string == '-cos':
         return '-sin'
 
-
+def if_saw(funcion):
+    if 'saw' in funcion or 'tri' in funcion:
+        return True
+    else:
+        return False
 
 def funcion_en_string(string, wm, t):
     if 'sen' in string or 'sin' in string:

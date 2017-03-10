@@ -223,7 +223,6 @@ function close_modal() {
 
 function change_sign(){
 
-
     if ($("#minus").hasClass("hidden")){
         $("#plus").addClass('hidden');
         $("#minus").toggleClass('hidden');
@@ -271,7 +270,7 @@ function modulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
-                $('#vc_modulada').val(vc);
+                $('#vc_modulada').val(data.vc);
                 $('#vct_modulada').val(vct);
                 $('#fc_modulada').val(fc);
                 $('#kl_modulada').val(data.m_modulada);
@@ -281,7 +280,13 @@ function modulate() {
                 $('#fm_modulada').val(fm);
                 if (!data.signo){
                     if ($("#minus").hasClass("hidden")){
-                        change_sign();
+                        $("#minus").toggleClass("hidden")
+                        $("#plus").addClass("hidden")
+                    }
+                }else{
+                    if ($("#plus").hasClass("hidden")){
+                        $("#plus").toggleClass("hidden")
+                        $("#minus").addClass("hidden")
                     }
                 }
                 espectro = data.espectro;

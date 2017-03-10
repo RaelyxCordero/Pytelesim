@@ -55,7 +55,13 @@ class ModFMView(View):
         FM = ModulacionFM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(vc), float(vm), noise=req['ruido'])
         datos = {}
         espectro = {}
-        e = EspectroFrecuencia.EspectroFrecuencia(FM.m, float(req['vc']), float(req['fc']), float(req['fm']))
+
+        if if_saw(FM.fun_portadora):
+            vc = FM.Vc_sierra
+        else:
+            vc = FM.Vc
+
+        e = EspectroFrecuencia.EspectroFrecuencia(FM.m, vc, float(req['fc']), float(req['fm']))
         espectro['amplitudes'] = e.get_amplitudes_espectros()
         espectro['frecuencias'] = e.get_frecuencias_espectros()
         datos['espectro'] = espectro
@@ -64,6 +70,7 @@ class ModFMView(View):
         datos['modulada'] = FM.get_modulada_str()
         datos['kl_modulada'] = FM.kl
         datos['m_modulada'] = FM.m
+        datos['vc'] = vc
 
         funcion = integra_string_moduladora(FM.fun_moduladora)
         datos['signo'] = if_signo_en_funcion(funcion)
