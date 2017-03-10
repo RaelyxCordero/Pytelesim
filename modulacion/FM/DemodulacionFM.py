@@ -1,8 +1,8 @@
 import numpy as np #numeric
 import sympy as sp #simbolic
 
-from . import utils
-from . import ModulacionFM
+import utils
+import ModulacionFM
 
 #execfile('DemodulacionFM.py')
 #obj = DemodulacionFM(Vc=5, fc=10, hzfc='KHz', fun_portadora='cos', fun_moduladora='cos', hzfm='KHz', m=50.13, fm=15, kl=10)

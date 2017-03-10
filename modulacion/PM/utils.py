@@ -25,6 +25,38 @@ def signo_en_funcion(string):
         sign = -1
     return sign
 
+def if_signo_en_funcion(string):
+    sign = True
+    if '-' in string:
+        sign = False
+    return sign
+
+def deriva_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  'cos'
+    elif string == '-sin' or string == '-sen':
+        return '-cos'
+    elif string == 'cos':
+        return '-sin'
+    elif string == '-cos':
+        return 'sin'
+
+def integra_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  '-cos'
+    elif string == '-sin' or string == '-sen':
+        return 'cos'
+    elif string == 'cos':
+        return 'sin'
+    elif string == '-cos':
+        return '-sin'
+
+def if_saw(funcion):
+    if 'saw' in funcion or 'tri' in funcion:
+        return True
+    else:
+        return False
+
 def funcion_en_string(string, wm, t):
     if 'sen' in string or 'sin' in string:
         return sp.sin(wm * t)
@@ -38,6 +70,8 @@ def funcion_en_string(string, wm, t):
     elif 'saw' in string:
         return saw_no_amp((wm/2*np.pi), t)
 
+
+
 def deriva_vmt(modulada):
     return sp.diff(modulada, sp.Symbol('x'))
 
@@ -47,14 +81,41 @@ def integra_vmt(moduladora):
 def conv_unidades_frecuencia(numero, unidad):
     if unidad == "Hz":
         return numero * 1
-    if unidad == "KHz":
+    elif unidad == "KHz":
         return numero * 1000
-    if unidad == "MHz":
+    elif unidad == "MHz":
         return numero * 1000000
-    if unidad == "GHz":
+    elif unidad == "GHz":
         return numero * 1000000000
-    if unidad == "THz":
+    elif unidad == "THz":
         return numero * 1000000000000
+
+def string_frecuencia_separated(string):
+    val = 0
+    unid = ""
+
+    if "hz" in string:
+        if "khz" in string:
+            val = float(string.replace("khz", ""))
+            unid = "KHz"
+        elif "mhz" in string:
+            val = float(string.replace("mhz", ""))
+            unid = "MHz"
+        elif "ghz" in string:
+            val = float(string.replace("ghz", ""))
+            unid = "GHz"
+        elif "thz" in string:
+            val = float(string.replace("thz", ""))
+            unid = "THz"
+        else:
+            val = float(string.replace("hz", ""))
+            unid = "Hz"
+    else:
+        val = float(string)
+        unid = "Hz"
+        
+    return (val, unid)
+
 
 def switch_hz_string(unidad):
     if unidad == "Hz":

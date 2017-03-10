@@ -1,11 +1,10 @@
 import numpy as np  # numeric
 import sympy as sp  # simbolic
-from . import utils
+import utils
 
 # execfile('ModulacionFM.py')
 # obj = ModulacionFM(fun_moduladora='-sen', fun_portadora='cos', hz_fm='Hz', hz_fc='Hz', kl=50, fc=3000, fm=50, vc=20, vm=10, noise=False)
 
-#aceptar kl o m opcionales
 class ModulacionFM:
     def __init__(self, fun_moduladora, fun_portadora, hz_fm, hz_fc, kl, fc, fm, vc, vm, noise=False):
         self.fun_moduladora = fun_moduladora

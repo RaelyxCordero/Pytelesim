@@ -81,14 +81,42 @@ def integra_vmt(moduladora):
 def conv_unidades_frecuencia(numero, unidad):
     if unidad == "Hz":
         return numero * 1
-    if unidad == "KHz":
+    elif unidad == "KHz":
         return numero * 1000
-    if unidad == "MHz":
+    elif unidad == "MHz":
         return numero * 1000000
-    if unidad == "GHz":
+    elif unidad == "GHz":
         return numero * 1000000000
-    if unidad == "THz":
+    elif unidad == "THz":
         return numero * 1000000000000
+
+def string_frecuencia_separated(string):
+    val = 0
+    unid = ""
+
+    if "hz" in string:
+        if "khz" in string:
+            val = float(string.replace("khz", ""))
+            unid = "KHz"
+        elif "mhz" in string:
+            val = float(string.replace("mhz", ""))
+            unid = "MHz"
+        elif "ghz" in string:
+            val = float(string.replace("ghz", ""))
+            unid = "GHz"
+        elif "thz" in string:
+            val = float(string.replace("thz", ""))
+            unid = "THz"
+        else:
+            val = float(string.replace("hz", ""))
+            unid = "Hz"
+    else:
+        val = float(string)
+        unid = "Hz"
+
+
+    return (val, unid)
+
 
 def switch_hz_string(unidad):
     if unidad == "Hz":

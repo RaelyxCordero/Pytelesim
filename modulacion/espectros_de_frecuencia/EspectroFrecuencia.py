@@ -55,15 +55,17 @@ class EspectroFrecuencia:
         # return coeficientes_bessel[str(self.n)]
 
     def get_amplitudes_espectros(self):
-        # print('get_amplitudes')
         items = self.get_indices_bessel()
-        # print(items)
-        i = 0
-        amplitudes = (items[i] * self.Vc, )
-        i = i + 1
-        while i < len(items):
-            amplitudes = amplitudes + (items[i] * self.Vc,)
+        amplitudes = 0
+        if items == 1:
+            amplitudes = (self.Vc, )
+        else:
+            i = 0
+            amplitudes = (items[i] * self.Vc,)
             i = i + 1
+            while i < len(items):
+                amplitudes = amplitudes + (items[i] * self.Vc,)
+                i = i + 1
         return amplitudes
 
     # devuelve un diccionario con llaves j0, j1, etc
