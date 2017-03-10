@@ -21,20 +21,20 @@ function modalidad(mod) {
 //    $('#fm_modulada').val("");
 //    $("#minus").addClass('hidden');
 //    $("#plus").toggleClass('hidden');
-    $("#vm").val("");
-    $("#vmt").val("");
-    $("#fm").val("");
-    $("#vc").val("");
-    $("#vct").val("");
-    $("#fc").val("");
-    $("#kl").val("");
-    $("#m").val("");
-    $("#vc_modulada").val("");
-    $("#vct_modulada").val("");
-    $("#fc_modulada").val("");
-    $("#kl_modulada").val("");
-    $("#vmt_modulada").val("");
-    $("#fm_modulada").val("");
+    //$("#vm").val("");
+    //$("#vmt").val("");
+    //$("#fm").val("");
+    //$("#vc").val("");
+    //$("#vct").val("");
+    //$("#fc").val("");
+    //$("#kl").val("");
+    //$("#m").val("");
+    //$("#vc_modulada").val("");
+    //$("#vct_modulada").val("");
+    //$("#fc_modulada").val("");
+    //$("#kl_modulada").val("");
+    //$("#vmt_modulada").val("");
+    //$("#fm_modulada").val("");
 
     if (mod == 'FM') {
         $('#modalidad').html('FM');
@@ -63,7 +63,8 @@ function drawModuladora(T, A) {
             data: [{
                 fn: $('#eq-moduladora').val(),
                 sampler: 'builtIn', // this will make function-plot use the evaluator of math.js
-                graphType: 'polyline'
+                graphType: 'polyline',
+                color: '#13753C'
             }]
         });
     } catch (err) {
@@ -86,7 +87,8 @@ function drawPortadora(T, A) {
             data: [{
                 fn: $('#eq-portadora').val(),
                 sampler: 'builtIn', // this will make function-plot use the evaluator of math.js
-                graphType: 'polyline'
+                graphType: 'polyline',
+                color: '#13753C'
             }]
         });
     } catch (err) {
@@ -109,7 +111,8 @@ function drawModulada(T, A) {
             data: [{
                 fn: $('#eq-modulada').val(),
                 sampler: 'builtIn', // this will make function-plot use the evaluator of math.js
-                graphType: 'polyline'
+                graphType: 'polyline',
+                color: '#13753C'
             }]
         });
     } catch (err) {
