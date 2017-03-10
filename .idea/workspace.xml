@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="88c78e12-c4ca-4c9a-88fe-ec0ac42ca01f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" afterPath="$PROJECT_DIR$/modulacion/FM/DemodulacionFM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" afterPath="$PROJECT_DIR$/modulacion/FM/ModulacionFM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/FM/utils.py" afterPath="$PROJECT_DIR$/modulacion/FM/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" afterPath="$PROJECT_DIR$/modulacion/PM/DemodulacionPM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/static/components/css/styles.css" afterPath="$PROJECT_DIR$/modulacion/static/components/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/static/components/js/custom.js" afterPath="$PROJECT_DIR$/modulacion/static/components/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/templates/modulacion/index.html" afterPath="$PROJECT_DIR$/modulacion/templates/modulacion/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/views.py" afterPath="$PROJECT_DIR$/modulacion/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -660,7 +652,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489043068265</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="vistas con modulacion y demodulacion FM funcionan bien... falta lo mismo para PM">
+      <created>1489114096770</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1489114096770</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -705,7 +704,8 @@
     <MESSAGE value="actualizando modulacion y demodulacion PM con ondas triangulares y diente de sierra" />
     <MESSAGE value="actualizando modulacion y demodulacion FM con ondas triangulares y diente de sierra, SOLO DEMODULA EN FM CON MODULADORAS SEN Y COS" />
     <MESSAGE value="mejorando modales y cambios de FM y PM a formulas de inicio" />
-    <option name="LAST_COMMIT_MESSAGE" value="mejorando modales y cambios de FM y PM a formulas de inicio" />
+    <MESSAGE value="vistas con modulacion y demodulacion FM funcionan bien... falta lo mismo para PM" />
+    <option name="LAST_COMMIT_MESSAGE" value="vistas con modulacion y demodulacion FM funcionan bien... falta lo mismo para PM" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -971,6 +971,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
