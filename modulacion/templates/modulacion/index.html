@@ -15,19 +15,19 @@
                     <div class="form-group" align="center">
                         <div class="col-md-12">
                             <p class="label-signal">Moduladora:</p>
-                            $Vm(t) = V{\small m}*{\cos}(2*{\pi}*f{\small m}*t)$
+                            $Vm(t) = V{\small m}{\cos}(2{\pi}f{\small m}t)$
                             <br>
                             <div class="eq">
                                 <span class="label-signal">$Vm(t) = $</span>
-                                <input class="form-control" type="text" id="vm" name="vm" placeholder="Vm" value="40" />
+                                <input class="form-control" type="text" id="vm" name="vm" placeholder="Vm" value="0.13" />
                             </div>
                             <div class="eq">
-                                <input class="form-control" type="text" id="vmt" name="vmt" placeholder="cos" value="cos" />
-                                <span class="label-signal">$(2*{\pi}$*</span>
+                                <input class="form-control" type="text" id="vmt" name="vmt" placeholder="sen" value="sen" />
+                                <span class="label-signal">$(2{\pi}$</span>
                             </div>
                             <div class="eq">
-                                <input class="form-control" type="text" id="fm" name="fm" placeholder="Fm" value="10" />
-                                <span class="label-signal">$*t)$</span>
+                                <input class="form-control" type="text" id="fm" name="fm" placeholder="Fm" value="100" />
+                                <span class="label-signal">$t)$</span>
                             </div>
                         </div>
                         <input type="hidden" name="eq-moduladora" id="eq-moduladora">
@@ -35,19 +35,21 @@
                         <div class="col-md-12">
                             <div class="col-md-12">
                                 <p class="label-signal">Portadora:</p>
-                                $Vc(t) = V{\small c}*{\cos}(2*{\pi}*f{\small c}*t)$
+                                $Vc(t) = V{\small c}{\cos}(2{\pi}f{\small c}t)$
                             </div>
                             <div class="eq">
                                 <span class="label-signal">$Vc(t) = $</span>
-                                <input class="form-control" type="text" id="vc" name="vc" placeholder="Vc" value="4" />
+                                <input class="form-control" type="text" id="vc" name="vc" placeholder="Vc" value="500" />
                             </div>
                             <div class="eq">
                                 <input class="form-control" type="text" id="vct" name="vct" placeholder="cos" value="cos" />
-                                <span class="label-signal">$(2*{\pi}$*</span>
+                                <span class="label-signal">$(2{\pi}$</span>
                             </div>
                             <div class="eq">
-                                <input class="form-control" type="text" id="fc" name="fc" placeholder="Fc" value="100" />
-                                <span class="label-signal">$*t)$</span>
+                                <!--100.000
+                                    100K-->
+                                <input class="form-control" type="text" id="fc" name="fc" placeholder="Fc" value="100000" />
+                                <span class="label-signal">$t)$</span>
                             </div>
                         </div>
                         <input type="hidden" id="eq-portadora" name="eq-portadora" />
@@ -61,7 +63,7 @@
                     <div class="col-md-12">
                         <label id="kl-label">$K{\small l}$:</label>
                         <label id="k-label">$K$:</label>
-                        <input class="form-control" type="text" name="kl" id="kl" value="1" />
+                        <input class="form-control" type="text" name="kl" id="kl" value="10000" />
                     </div>
                     <div class="col-md-12">
                         <label for="kl">$m$:</label>
@@ -76,37 +78,41 @@
                 <div class="form-group">
                     <p class="label-signal">Modulada:</p>
                     <div id="eq-modulada-fm">
-                        $m(t) = V{\small c}*{\cos}(W{\small c}*t + K{\small l}*{\int}Vm(t))$
+                        $m(t) = V{\small c}{\cos}(W{\small c}t + K{\small l}{\int}Vm(t))$
                     </div>
                     <div id="eq-modulada-pm">
-                        $m(t) = V{\small c}*{\cos}(W{\small c}*t + K*Vm(t))$
+                        $m(t) = V{\small c} {\cos}(W{\small c}t + KVm(t))$
                     </div>
 
 
                     <br>
                     <div class="eq">
                         <span class="label-signal">$m(t) = $</span>
-                        <input class="form-control" type="text" id="vc_modulada" name="vc_modulada" placeholder="Vc" value="4" />
+                        <input class="form-control" type="text" id="vc_modulada" name="vc_modulada" placeholder="Vc" />
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="text" id="vct_modulada" name="vct_modulada" placeholder="cos" value="cos" />
-                        <span class="label-signal">$(2*{\pi}$*</span>
+                        <input class="form-control" type="text" id="vct_modulada" name="vct_modulada" placeholder="cos"  />
+                        <span class="label-signal">$(2{\pi}$</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="text" id="fc_modulada" name="fc_modulada" placeholder="Fc" value="100" />
-                        <span class="label-signal">$*t + $</span>
+                        <input class="form-control" type="text" id="fc_modulada" name="fc_modulada" placeholder="Fc" />
+                        <span class="label-signal">$t $</span>
+                    </div>
+                    <div class="eq"  style="padding-top: 7px; margin-left: 6px; margin-right: 6px; ">
+                        <span id="plus" onclick="change_sign()" style="cursor: pointer;">$ + $</span>
+                        <span id="minus" onclick="change_sign()" class="hidden" style="cursor: pointer;">$ - $</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="text" id="kl_modulada" name="kl_modulada" placeholder="Kl" value="1" />
+                        <input class="form-control" type="text" id="kl_modulada" name="kl_modulada" placeholder="Kl" />
                         <span class="label-signal">$*$</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="text" id="vmt_modulada" name="vmt_modulada" placeholder="cos" value="cos" />
-                        <span class="label-signal">$(2*{\pi}$*</span>
+                        <input class="form-control" type="text" id="vmt_modulada" name="vmt_modulada" placeholder="cos"  />
+                        <span class="label-signal">$(2{\pi}$</span>
                     </div>
                     <div class="eq">
-                        <input class="form-control" type="text" id="fm_modulada" name="fm_modulada" placeholder="Fm" value="100" />
-                        <span class="label-signal">$*t)$</span>
+                        <input class="form-control" type="text" id="fm_modulada" name="fm_modulada" placeholder="Fm"  />
+                        <span class="label-signal">$t)$</span>
                     </div>
                     <input type="hidden" name="eq-modulada" id="eq-modulada" value="4*cos(2*pi*2*x - 4*sin(2*pi*1.5*x))">
                     <!-- "4*cos(2*pi*2*x + 4*sin(2*pi*1.5*x))" /> 6*cos(100*pi*x+70*cos(30*pi*x))-->

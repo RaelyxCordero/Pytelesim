@@ -25,6 +25,34 @@ def signo_en_funcion(string):
         sign = -1
     return sign
 
+def if_signo_en_funcion(string):
+    sign = True
+    if '-' in string:
+        sign = False
+    return sign
+
+def deriva_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  'cos'
+    elif string == '-sin' or string == '-sen':
+        return '-cos'
+    elif string == 'cos':
+        return '-sin'
+    elif string == '-cos':
+        return 'sin'
+
+def integra_string_moduladora(string):
+    if string == 'sin' or string == 'sen':
+        return  '-cos'
+    elif string == '-sin' or string == '-sen':
+        return 'cos'
+    elif string == 'cos':
+        return 'sin'
+    elif string == '-cos':
+        return '-sin'
+
+
+
 def funcion_en_string(string, wm, t):
     if 'sen' in string or 'sin' in string:
         return sp.sin(wm * t)

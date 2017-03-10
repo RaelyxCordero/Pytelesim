@@ -8,7 +8,7 @@ from . import ModulacionPM
 
 class DemodulacionPM:
 
-    def __init__(self, Vc, fc, hzfc,  fun_portadora, fun_moduladora, hzfm, fm, k=None,  Vm=None, m=None):
+    def __init__(self, Vc, fc, hzfc,  fun_portadora, fun_moduladora, hzfm, fm, k, m):
 
         self.moduladora = 0
         self.portadora = 0
@@ -22,25 +22,14 @@ class DemodulacionPM:
         self.m = m
         self.Vc = Vc
         self.Vc_sierra = (2 * self.Vc) / np.pi
-        self.Vm = Vm
+        self.Vm = self.m / self.k
         self.Vm_sierra = (2 * self.Vm) / np.pi
         self.fc_real = fc  # fc por parametro
         self.t = sp.Symbol('x')
 
-        if k is not None and Vm is not None:
-            if 'saw' in self.fun_moduladora:
-                self.m = (self.k * self.Vm_sierra)
 
-            elif 'tri' in self.fun_moduladora:
-                self.m = (self.k * self.Vm_sierra)
-            else:
-                self.m = self.k * self.Vm
-
-        elif m is not None and Vm is not None:
-            self.k = self.m / self.Vm
-
-        elif m is not None and k is not None:
-            self.Vm = self.m / self.k
+        if 'saw' in self.fun_moduladora or 'tri' in self.fun_moduladora:
+            self.m = (self.k * self.Vm_sierra)
 
         self.fm = utils.conv_unidades_frecuencia(self.fm_real, self.hzfm)
         self.fc = utils.conv_unidades_frecuencia(self.fc_real, self.hzfc)
@@ -54,10 +43,7 @@ class DemodulacionPM:
         funcion = utils.funcion_en_string(self.fun_moduladora, self.wm, self.t)
         signo = utils.signo_en_funcion(self.fun_moduladora)
 
-        if 'saw' in self.fun_moduladora:
-            self.moduladora = (-1) * self.Vm_sierra * (signo * funcion)
-
-        elif 'tri' in self.fun_moduladora:
+        if 'saw' in self.fun_moduladora or 'tri' in self.fun_moduladora:
             self.moduladora = self.Vm_sierra * (signo * funcion)
         else:
             self.moduladora = self.Vm * (signo * funcion)

@@ -13,6 +13,15 @@ function modalidad(mod) {
     $("#eq-modulada-pm").addClass('hidden');
     $("#kl-label").addClass('hidden');
     $("#k-label").addClass('hidden');
+//    $('#vc_modulada').val("");    QUIERO REINICIAR LOS VALORES POR DEFECTO AL CAMBIAR DE FM A PM Y VICEVERSA
+//    $('#vct_modulada').val("");
+//    $('#fc_modulada').val("");
+//    $('#kl_modulada').val("");
+//    $('#vmt_modulada').val("");
+//    $('#fm_modulada').val("");
+//    $("#minus").addClass('hidden');
+//    $("#plus").toggleClass('hidden');
+
     if (mod == 'FM') {
         $('#modalidad').html('FM');
         $('#eq-modulada-fm').toggleClass('hidden');
@@ -212,6 +221,18 @@ function close_modal() {
     $('#myModal').modal('hide');
 }
 
+function change_sign(){
+
+
+    if ($("#minus").hasClass("hidden")){
+        $("#plus").addClass('hidden');
+        $("#minus").toggleClass('hidden');
+    }else{
+        $("#plus").toggleClass('hidden');
+        $("#minus").toggleClass('hidden');
+    }
+}
+
 function modulate() {
     $("#plot-moduladora").html("");
     $("#plot-portadora").html("");
@@ -253,9 +274,16 @@ function modulate() {
                 $('#vc_modulada').val(vc);
                 $('#vct_modulada').val(vct);
                 $('#fc_modulada').val(fc);
-                $('#kl_modulada').val(kl);
-                $('#vmt_modulada').val(vmt);
+                $('#kl_modulada').val(data.m_modulada);
+                $('#m').val(data.m_modulada);
+                $('#kl').val(data.kl_modulada);
+                $('#vmt_modulada').val(data.vmt);
                 $('#fm_modulada').val(fm);
+                if (!data.signo){
+                    if ($("#minus").hasClass("hidden")){
+                        change_sign();
+                    }
+                }
                 espectro = data.espectro;
                 console.log(data);
                 drawModuladora(1 / fm, vm);
@@ -280,9 +308,17 @@ function modulate() {
                 $('#vc_modulada').val(vc);
                 $('#vct_modulada').val(vct);
                 $('#fc_modulada').val(fc);
-                $('#kl_modulada').val(kl);
+                $('#kl_modulada').val(data.m_modulada);
+                $('#m').val(data.m_modulada);
+                $('#kl').val(data.k_modulada);
                 $('#vmt_modulada').val(vmt);
                 $('#fm_modulada').val(fm);
+
+                if (!data.signo){
+                    if ($("#minus").hasClass("hidden")){
+                        change_sign();
+                    }
+                }
                 espectro = data.espectro;
                 console.log(data);
                 drawModuladora(1 / fm, vm);
@@ -301,21 +337,27 @@ function demodulate() {
     $("#plot-modulada").html("");
     $("#spectrum").html("");
 
+    if($("#minus").hasClass("hidden")){
+        vmt = $('#vmt_modulada').val();
+    }else{
+        vmt = "-" + $('#vmt_modulada').val();
+    }
+
     vc = $('#vc_modulada').val();
     vct = $('#vct_modulada').val();
     fc = $('#fc_modulada').val();
-    kl = $('#kl_modulada').val();
-    vmt = $('#vmt_modulada').val();
+    m = $('#kl_modulada').val();
+    kl = $('#kl').val();
+
     fm = $('#fm_modulada').val();
-    m = $('#m').val();
     var post_data = {
         'vc': vc,
         'vct': vct,
         'fc': fc,
+        'm': m,
         'kl': kl,
         'vmt': vmt,
         'fm': fm,
-        'm': m
     };
     if (modx == 'FM') {
         $.ajax({
@@ -328,9 +370,16 @@ function demodulate() {
                 $('#eq-moduladora').val(data.moduladora);
                 $('#eq-portadora').val(data.portadora);
                 $('#eq-modulada').val(data.modulada);
-                demod_fm = data.fm;
-                demod_fc = data.fc;
-                vm = data.vm;
+                if (data.signo){
+                    $('#vm').val(data.vm);
+                }else{
+                    $('#vm').val("-"+data.vm);
+                }
+                $('#vmt').val(data.vmt);
+                $('#fm').val(data.fm);
+                $('#vc').vc;
+                $('#vct').vct;
+                $('#fc').fc;
                 espectro = data.espectro;
                 console.log(data);
                 drawModuladora(1 / fm, vm);

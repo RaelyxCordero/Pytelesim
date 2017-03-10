@@ -18,6 +18,8 @@ from .PM.ModulacionPM import ModulacionPM
 from .PM.DemodulacionPM import DemodulacionPM
 from .espectros_de_frecuencia import EspectroFrecuencia
 from .calculo_datos_senales import CalculoDatos
+from .FM.utils import *
+import sympy as sp #simbolic
 
 
 from django import forms
@@ -31,7 +33,26 @@ class View(View):
 class ModFMView(View):
     def post(self, request):
         req = request.POST
-        FM = ModulacionFM(req['vmt'], req['vct'], 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(req['vc']), float(req['vm']), noise=req['ruido'])
+        vmt = ''
+        vm = ''
+
+        if not if_signo_en_funcion(req['vm']):
+            vm = req['vm'].replace("-", "")
+            vmt = "-" + req['vmt']
+        else:
+            vmt = req['vmt']
+            vm = req['vm']
+        
+        vct = ''
+        vc = ''
+        if not if_signo_en_funcion(req['vc']):
+            vc = req['vc'].replace("-", "")
+            vct = "-" + req['vct']
+        else:
+            vct = req['vct']
+            vc = req['vc']
+
+        FM = ModulacionFM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(vc), float(vm), noise=req['ruido'])
         datos = {}
         espectro = {}
         e = EspectroFrecuencia.EspectroFrecuencia(FM.m, float(req['vc']), float(req['fc']), float(req['fm']))
@@ -41,13 +62,24 @@ class ModFMView(View):
         datos['portadora'] = FM.get_portadora_str()
         datos['moduladora'] = FM.get_moduladora_str()
         datos['modulada'] = FM.get_modulada_str()
+        datos['kl_modulada'] = FM.kl
+        datos['m_modulada'] = FM.m
+
+        funcion = integra_string_moduladora(FM.fun_moduladora)
+        datos['signo'] = if_signo_en_funcion(funcion)
+
+        if 'cos' in funcion:
+            datos['vmt'] = 'cos'
+        elif 'sin' in funcion:
+            datos['vmt'] = 'sin'
         
         return HttpResponse(JsonResponse(datos, safe=False))
 
 class DemodFMView(View):
     def post(self, request):
         req = request.POST
-        FM = DemodulacionFM(float(req['vc']), float(req['fc']), 'Hz', req['vct'], req['vmt'], 'Hz', float(req['kl']), float(req['fm']), m=float(req['m']))
+        FM = DemodulacionFM(Vc=float(req['vc']), fc=float(req['fc']), hzfc='Hz', fun_portadora=req['vct'],
+                            fun_moduladora=req['vmt'], hzfm='Hz', fm=float(req['fm']), kl=float(req['kl']), m=float(req['m']))
 
         datos = {}
         espectro = {}
@@ -57,16 +89,50 @@ class DemodFMView(View):
         datos['espectro'] = espectro
         datos['portadora'] = FM.get_portadora_str()
         datos['moduladora'] = FM.get_moduladora_str()
-        datos['modulada'] = str(FM.modulada)
+        datos['modulada'] = FM.get_modulada_str()
         datos['fm'] = FM.fm
         datos['fc'] = FM.fc
         datos['vm'] = FM.Vm
+        datos['vct'] = FM.fun_portadora
+        datos['vc'] = FM.Vc #revisar si es saw para devolver vc o vc_sierra
+
+        funcion = deriva_string_moduladora(FM.fun_moduladora)
+
+        datos['signo'] = if_signo_en_funcion(funcion)
+
+        if 'cos' in funcion:
+            datos['vmt'] = 'cos'
+        elif 'sin' in funcion:
+            datos['vmt'] = 'sin'
+
+
         return HttpResponse(JsonResponse(datos, safe=False))
 
 class ModPMView(View):
     def post(self, request):
         req = request.POST
-        PM = ModulacionPM(req['vmt'], req['vct'], 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(req['vc']), float(req['vm']), noise=req['ruido'])
+        vmt = ''
+        vm = ''
+
+        if not if_signo_en_funcion(req['vm']):
+            vm = req['vm'].replace("-", "")
+            vmt = "-" + req['vmt']
+        else:
+            vmt = req['vmt']
+            vm = req['vm']
+
+        vct = ''
+        vc = ''
+        if not if_signo_en_funcion(req['vc']):
+            vc = req['vc'].replace("-", "")
+            vct = "-" + req['vct']
+        else:
+            vct = req['vct']
+            vc = req['vc']
+
+
+
+        PM = ModulacionPM(vmt, vct, 'Hz', 'Hz', float(req['kl']), float(req['fc']), float(req['fm']), float(vc), float(vm), noise=req['ruido'])
         datos = {}
         espectro = {}
         e = EspectroFrecuencia.EspectroFrecuencia(PM.m, float(req['vc']), float(req['fc']), float(req['fm']))
@@ -77,10 +143,16 @@ class ModPMView(View):
         datos['portadora'] = PM.get_portadora_str()
         datos['moduladora'] = PM.get_moduladora_str()
         datos['modulada'] = PM.get_modulada_str()
+        datos['k_modulada'] = PM.k
+        datos['m_modulada'] = PM.m
+
+        datos['signo'] = if_signo_en_funcion(vmt)
+
         return HttpResponse(JsonResponse(datos, safe=False))
 
 class DemodPMView(View):
     def post(self, request):
+        # Vc, fc, hzfc,  fun_portadora, fun_moduladora, hzfm, fm, k, m
         req = request.POST
         PM = DemodulacionPM(float(req['vc']), float(req['fc']), 'Hz', req['vct'], req['vmt'], 'Hz', float(req['fm']), float(req['kl']), m=float(req['m']))
         datos = {}
