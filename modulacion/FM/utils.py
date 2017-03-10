@@ -110,6 +110,10 @@ def string_frecuencia_separated(string):
         else:
             val = float(string.replace("hz", ""))
             unid = "Hz"
+    else:
+        val = float(string)
+        unid = "Hz"
+
 
     return (val, unid)
 
