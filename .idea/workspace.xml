@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="88c78e12-c4ca-4c9a-88fe-ec0ac42ca01f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/PM/utils.py" afterPath="$PROJECT_DIR$/modulacion/PM/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/static/components/js/custom.js" afterPath="$PROJECT_DIR$/modulacion/static/components/js/custom.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modulacion/views.py" afterPath="$PROJECT_DIR$/modulacion/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,8 +51,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modulacion/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1975">
-              <caret line="319" column="0" lean-forward="true" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+            <state relative-caret-position="139">
+              <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
               <folding>
                 <element signature="e#15#50#0" expanded="true" />
               </folding>
@@ -687,7 +685,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489118200497</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="modulacion y demodulacion FM y PM perfectamente funcionales">
+      <created>1489124233093</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1489124233093</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -733,7 +738,8 @@
     <MESSAGE value="actualizando modulacion y demodulacion FM con ondas triangulares y diente de sierra, SOLO DEMODULA EN FM CON MODULADORAS SEN Y COS" />
     <MESSAGE value="mejorando modales y cambios de FM y PM a formulas de inicio" />
     <MESSAGE value="vistas con modulacion y demodulacion FM funcionan bien... falta lo mismo para PM" />
-    <option name="LAST_COMMIT_MESSAGE" value="vistas con modulacion y demodulacion FM funcionan bien... falta lo mismo para PM" />
+    <MESSAGE value="modulacion y demodulacion FM y PM perfectamente funcionales" />
+    <option name="LAST_COMMIT_MESSAGE" value="modulacion y demodulacion FM y PM perfectamente funcionales" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1078,7 +1084,7 @@
         <state relative-caret-position="306">
           <caret line="29" column="21" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1088,7 +1094,7 @@
         <state relative-caret-position="603">
           <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1115,8 +1121,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modulacion/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1975">
-          <caret line="319" column="0" lean-forward="true" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+        <state relative-caret-position="139">
+          <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
           <folding>
             <element signature="e#15#50#0" expanded="true" />
           </folding>

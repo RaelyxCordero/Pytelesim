@@ -201,7 +201,6 @@ class DemodPMView(View):
 
         return HttpResponse(JsonResponse(datos, safe=False))
 
-# EN LOS CALCULOS RECIBIR TODO COMO VALOR ABSOLUTO
 
 #   /*      FM                                          PM
 # a. Desviación de frecuencia.(Kl,vm)
