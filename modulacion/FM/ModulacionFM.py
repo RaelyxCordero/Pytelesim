@@ -1,6 +1,6 @@
 import numpy as np  # numeric
 import sympy as sp  # simbolic
-import utils
+from . import utils
 
 # execfile('ModulacionFM.py')
 # obj = ModulacionFM(fun_moduladora='-sen', fun_portadora='cos', hz_fm='Hz', hz_fc='Hz', kl=50, fc=3000, fm=50, vc=20, vm=10, noise=False)
